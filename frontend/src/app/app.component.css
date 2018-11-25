@@ -1,0 +1,58 @@
+
+.container {
+  max-width: 960px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 59px; /* Vertically center the text there */
+  border-top: 1px solid lightgrey;  
+  background-color: #f5f5f5;
+  z-index: 1000;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.author-name
+{
+    position: relative;
+    top: -6px;
+}
+
+.dropdown-menu {
+    left: unset;
+    right: -15px;
+}
+
+.dropdown-menu > a {
+    text-align: center;
+}
+
+.dropdown-menu > a:not(.active):hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    background-image: none;
+}
+
+.dropdown-toggle::after {
+    vertical-align: 0.500em;
+}
+
+@media only screen and (max-width: 767.98px)
+{
+    .nav-right-side
+    {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
