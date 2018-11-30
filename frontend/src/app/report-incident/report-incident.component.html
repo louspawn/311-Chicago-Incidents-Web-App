@@ -1,0 +1,185 @@
+
+<div class="sidebar-sticky">
+  <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+    <span>Report incident</span>
+  </h6>
+  <form class="needs-validation p-3" novalidate>
+    <div class="mb-3">
+      <label for="type">Type</label>
+      <div class="input-group">
+        <select [(ngModel)]="request.type" name="type" class="custom-select form-control" id="type" required>
+            <option value="undefined" selected disabled>Select type</option>
+            <option *ngFor="let type of reportTypes" [value]="type.value">{{ type.name }}</option>
+        </select>
+        <div class="invalid-feedback" style="width: 100%;">
+          Type is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="latitude">Latitude</label>
+        <input [(ngModel)]="request.latitude" name="latitude" type="text" class="form-control" id="latitude" placeholder="35.460670" required>
+        <div class="invalid-feedback" style="width: 100%;">
+          Latitude is required.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="longitude">Longitude</label>
+        <input [(ngModel)]="request.longitude" name="longitude" type="text" class="form-control" id="longitude" placeholder="-94.789211" required>
+        <div class="invalid-feedback" style="width: 100%;">
+          Longitude is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="x-coordinate">X-Coordinate</label>
+        <input [(ngModel)]="request.x_coordinate" name="x-coordinate" type="text" class="form-control" id="x-coordinate" placeholder="1147716.70081754" required>
+        <div class="invalid-feedback" style="width: 100%;">
+          X-Coordinate is required.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="y-coordinate">Y-Coordinate</label>
+        <input [(ngModel)]="request.y_coordinate" name="y-coordinate" type="text" class="form-control" id="y-coordinate" placeholder="1937054.16743335" required>
+        <div class="invalid-feedback" style="width: 100%;">
+          Y-Coordinate is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="address">Address</label>
+      <input [(ngModel)]="request.address" name="address" type="text" class="form-control" id="address" placeholder="Something Main St" required>
+      <div class="invalid-feedback">
+        Please enter the address.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="zip-code">Zip Code</label>
+        <input [(ngModel)]="request.zip_code" name="zip-code" type="text" class="form-control" id="zip-code" placeholder="99524" required>
+        <div class="invalid-feedback" style="width: 100%;">
+          Zip code is required.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="number">Number</label>
+        <input [(ngModel)]="request.number" name="number" type="number" class="form-control" id="number" placeholder="16" required>
+        <div class="invalid-feedback" style="width: 100%;">
+          Number is required.
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="request.type === 'Abandoned Vehicle'">
+      <div class="mb-3">
+        <label for="vehicle_model">Vehicle Model</label>
+        <div class="input-group">
+          <select [(ngModel)]="request.vehicle_model" name="vehicle_model" class="custom-select form-control" id="vehicle_model" required>
+              <option value="undefined" selected disabled>Select vehicle model</option>
+              <option *ngFor="let vehicle_model of vehicleModel" [value]="vehicle_model.value">{{ vehicle_model.name }}</option>
+          </select>
+          <div class="invalid-feedback" style="width: 100%;">
+            Vehicle model is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="vehicle_color">Vehicle Color</label>
+        <div class="input-group">
+          <select [(ngModel)]="request.vehicle_color" name="vehicle_color" class="custom-select form-control" id="vehicle_color" required>
+              <option value="undefined" selected disabled>Select vehicle color</option>
+              <option *ngFor="let vehicle_color of vehicleColor" [value]="vehicle_color.value">{{ vehicle_color.name }}</option>
+          </select>
+          <div class="invalid-feedback" style="width: 100%;">
+            Vehicle color is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="licence_plate">Licence plate</label>
+          <input [(ngModel)]="request.licence_plate" name="licence_plate" type="text" class="form-control" id="licence_plate" placeholder="FFX580" required>
+          <div class="invalid-feedback" style="width: 100%;">
+            Licence plate is required.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="days_abandoned">Days abandoned</label>
+          <input [(ngModel)]="request.days_abandoned" name="days_abandoned" type="number" class="form-control" id="days_abandoned" placeholder="5" required>
+          <div class="invalid-feedback" style="width: 100%;">
+            Days abandoned is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="request.type === 'Graffiti Removal'">
+      <div class="mb-3">
+        <label for="graffiti_location">Graffiti Location</label>
+        <div class="input-group">
+          <select [(ngModel)]="request.graffiti_location" name="graffiti_location" class="custom-select form-control" id="graffiti_location" required>
+              <option value="undefined" selected disabled>Select graffiti location</option>
+              <option *ngFor="let graffiti_location of graffitiLocation" [value]="graffiti_location.value">{{ graffiti_location.name }}</option>
+          </select>
+          <div class="invalid-feedback" style="width: 100%;">
+            Graffiti location is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="graffiti_surface">Graffiti Surface</label>
+        <div class="input-group">
+          <select [(ngModel)]="request.graffiti_surface" name="graffiti_surface" class="custom-select form-control" id="graffiti_surface" required>
+              <option value="undefined" selected disabled>Select graffiti surface</option>
+              <option *ngFor="let graffiti_surface of graffitiSurface" [value]="graffiti_surface.value">{{ graffiti_surface.name }}</option>
+          </select>
+          <div class="invalid-feedback" style="width: 100%;">
+            Graffiti surface is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="request.type === 'Sanitation Code Complaint'">
+      <div class="mb-3">
+        <label for="sanitation_code_nature">Sanitation Code Nature</label>
+        <div class="input-group">
+          <select [(ngModel)]="request.sanitation_code_nature" name="sanitation_code_nature" class="custom-select form-control" id="sanitation_code_nature" required>
+              <option value="undefined" selected disabled>Select sanitation code nature</option>
+              <option *ngFor="let sanitation_code_nature of sanitationCodeNature" [value]="sanitation_code_nature.value">{{ sanitation_code_nature.name }}</option>
+          </select>
+          <div class="invalid-feedback" style="width: 100%;">
+            Sanitation code nature is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="request.type === 'Tree Debris' || request.type === 'Tree Trims'">
+      <div class="mb-3">
+        <label for="tree_location">Tree location</label>
+        <div class="input-group">
+          <select [(ngModel)]="request.tree_location" name="tree_location" class="custom-select form-control" id="tree_location" required>
+              <option value="undefined" selected disabled>Select tree location</option>
+              <option *ngFor="let tree_location of treeLocation" [value]="tree_location.value">{{ tree_location.name }}</option>
+          </select>
+          <div class="invalid-feedback" style="width: 100%;">
+            Tree location is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mb-4">
+    <button class="btn btn-primary btn-lg btn-block" (click)="sendRequest()">Send request</button>
+  </form>
+</div>

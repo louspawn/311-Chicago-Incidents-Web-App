@@ -1,0 +1,15 @@
+
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    height: calc(100vh - 127px);
+    padding-top: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 66px;
+}
+
+.sidebar-heading {
+    text-transform: uppercase;
+}
