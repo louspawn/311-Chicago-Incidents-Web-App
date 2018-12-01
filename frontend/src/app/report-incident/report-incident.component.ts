@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormData } from '../form-data';
+import { FormData } from '../_classes/form-data';
 
 @Component({
   selector: 'app-report-incident',
