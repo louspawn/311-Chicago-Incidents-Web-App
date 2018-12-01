@@ -5,14 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="graffiti_removal_request", schema="public")
-public class GraffitiRemovalRequest extends Request {
+@Table(name="pot_holes_request", schema="public")
+public class PotHolesRequest extends Request {
 
     @Column(nullable = true)
-    private String typeOfSurfaceIsOn;
+    private String currentActivity;
 
     @Column(nullable = true)
-    private String whereIsLocated;
+    private String mostRecentAction;
+
+    @Column(nullable = true)
+    private int numberOfPotHolesFilledOnBlock;
 
     @Column(nullable = true)
     private int ssa;

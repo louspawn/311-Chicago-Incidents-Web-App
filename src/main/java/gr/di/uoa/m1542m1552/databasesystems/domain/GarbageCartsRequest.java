@@ -25,4 +25,13 @@ public class GarbageCartsRequest extends Request {
 
     @Column(nullable = true)
     private int numberOfBlackCartsDelivered;
+
+    @Column(nullable = true)
+    private int ssa;
+
+    @Column(nullable = true)
+    private String currentActivity;
+
+    @Column(nullable = true)
+    private String mostRecentAction;
 }

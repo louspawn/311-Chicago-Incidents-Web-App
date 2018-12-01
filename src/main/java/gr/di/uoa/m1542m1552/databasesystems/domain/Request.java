@@ -24,40 +24,47 @@ public class Request {
     // for custom generator 
     // https://www.baeldung.com/hibernate-identifiers
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "", unique = true, updatable = false, nullable = false)
-    int serviceRequestNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(updatable = false, nullable = false)
+    String serviceRequestNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false, nullable = false)
-    @CreatedDate
+    // TODO: uncomment after db import
+    // @CreatedDate
     private Date creationDate;
 
     private String status;
 
+    // TODO: only date
     @Temporal(TemporalType.TIMESTAMP)
     private Date completionDate;
 
     // https://vladmihalcea.com/the-best-way-to-map-an-enum-type-with-jpa-and-hibernate/
     // https://thoughts-on-java.org/jpa-21-type-converter-better-way-to/
- 	@Enumerated(EnumType.ORDINAL)
+ 	@Enumerated(EnumType.STRING)
     @Column(updatable = false, nullable = false)
     private TypeOfServiceRequest typeOfServiceRequest;
 
     @Column(nullable = false)
     private String streetAddress;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int zipCode;
 
+    @Column(nullable = true)
     private double xCoordinate;
 
+    @Column(nullable = true)
     private double yCoordinate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private double latitude;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private double longitude;
 
     // https://vladmihalcea.com/how-to-store-schema-less-eav-entity-attribute-value-data-using-json-and-hibernate/
@@ -68,11 +75,19 @@ public class Request {
     // @JoinColumn(name = "rollNo", nullable = false)
     // private Student student;
 
-    public int getServiceRequestNumber() {
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getServiceRequestNumber() {
         return this.serviceRequestNumber;
     }
 
-    public void setServiceRequestNumber(int serviceRequestNumber) {
+    public void setServiceRequestNumber(String serviceRequestNumber) {
         this.serviceRequestNumber = serviceRequestNumber;
     }
 
