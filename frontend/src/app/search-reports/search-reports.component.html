@@ -5,46 +5,239 @@
 <ngb-tabset>
   <ngb-tab title="Search">
     <ng-template ngbTabContent>
-      <p>---SEARCH FORM---</p>
+      <p class="pt-3">Search for all incidents that took place in a specific street, zipcode.</p>
+
+      <form class="needs-validation" novalidate>
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label for="address">Address</label>
+          <input [(ngModel)]="searchForm.address" name="address" type="text" class="form-control" id="address" placeholder="Something Main St" required>
+          <div class="invalid-feedback">
+            Please enter the address.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="zip-code">Zip Code</label>
+          <input [(ngModel)]="searchForm.zip_code" name="zip-code" type="text" class="form-control" id="zip-code" placeholder="99524" required>
+          <div class="invalid-feedback" style="width: 100%;">
+            Zip code is required.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3 align-self-end">
+          <button class="btn btn-primary btn-md btn-block" (click)="search()">Search</button>
+        </div>
+      </div>
+      </form>
+
+      <h2>Results</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </ng-template>
   </ngb-tab>
   <ngb-tab title="Total per type">
     <ng-template ngbTabContent>
-      <p>---TOTAL PER TYPE FORM---</p>
+      <p class="pt-3">Find the total requests per type that were created within a specified time range and sort them in a descending order.</p>
+
+      <form class="needs-validation" novalidate>
+      <div class="row mt-3">
+        <div class="col-md-3 mb-3">
+          <label for="typeStartDate">Start date</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" id="typeStartDate" [maxDate]="dateNow"
+                   name="typeStartDate" [(ngModel)]="totalPerTypeForm.startDate" ngbDatepicker #typeStartDate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="typeStartDate.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Please enter the start date.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="typeEndDate">End date</label>
+          <div class="input-group" *ngIf="totalPerTypeForm.startDate">
+            <input class="form-control" placeholder="yyyy-mm-dd" id="typeEndDate"
+                   [maxDate]="dateNow"
+                   [minDate]="{year: totalPerTypeForm.startDate.year, month: totalPerTypeForm.startDate.month, day: totalPerTypeForm.startDate.day}"
+                   name="typeEndDate" [(ngModel)]="totalPerTypeForm.endDate" ngbDatepicker #typeEndDate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="typeEndDate.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div class="input-group" *ngIf="!totalPerTypeForm.startDate">
+            <input class="form-control" placeholder="yyyy-mm-dd" [disabled]="true">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" type="button" [disabled]="true"></button>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Please enter the start date.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3 align-self-end">
+          <button class="btn btn-primary btn-md btn-block" (click)="findTotalPerType()">Find</button>
+        </div>
+      </div>
+      </form>
+
+      <h2>Results</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th># of requests</th>
+              <th>Request type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </ng-template>
   </ngb-tab>
   <ngb-tab title="Total per day">
     <ng-template ngbTabContent>
-      <p>---TOTAL PER DAY FORM---</p>
+      <p class="pt-3">Find the total requests per day for a specific request type and time range.</p>
+
+      <form class="needs-validation" novalidate>
+      <div class="row mt-3">
+        <div class="col-md-4 mb-3">
+          <label for="dayType">Type</label>
+          <div class="input-group">
+            <select [(ngModel)]="totalPerDayForm.type" name="dayType" class="custom-select form-control" id="dayType" required>
+                <option value="undefined" selected disabled>Select type</option>
+                <option *ngFor="let type of reportTypes" [value]="type.value">{{ type.name }}</option>
+            </select>
+            <div class="invalid-feedback" style="width: 100%;">
+              Type is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="dayStartDate">Start date</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" id="dayStartDate" [maxDate]="dateNow"
+                   name="dayStartDate" [(ngModel)]="totalPerDayForm.startDate" ngbDatepicker #dayStartDate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="dayStartDate.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Please enter the start date.
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="dayEndDate">End date</label>
+          <div class="input-group" *ngIf="totalPerDayForm.startDate">
+            <input class="form-control" placeholder="yyyy-mm-dd" id="dayEndDate"
+                   [maxDate]="dateNow"
+                   [minDate]="{year: totalPerDayForm.startDate.year, month: totalPerDayForm.startDate.month, day: totalPerDayForm.startDate.day}"
+                   name="dayEndDate" [(ngModel)]="totalPerDayForm.endDate" ngbDatepicker #dayEndDate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="dayEndDate.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div class="input-group" *ngIf="!totalPerDayForm.startDate">
+            <input class="form-control" placeholder="yyyy-mm-dd" [disabled]="true">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" type="button" [disabled]="true"></button>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Please enter the start date.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3 align-self-end">
+          <button class="btn btn-primary btn-md btn-block" (click)="findTotalPerDay()">Find</button>
+        </div>
+      </div>
+      </form>
+
+      <h2>Results</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th># of requests</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>2018-06-29</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </ng-template>
   </ngb-tab>
   <ngb-tab title="Most common type">
     <ng-template ngbTabContent>
-      <p>---MOST COMMON TYPE FORM---</p>
+      <p class="pt-3">Find the most common service request per zipcode for a specific day.</p>
+
+      <form class="needs-validation" novalidate>
+      <div class="row mt-3">
+        <div class="col-md-3 mb-3">
+          <label for="mostCommonDate">Date</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" id="mostCommonDate" [maxDate]="dateNow"
+                   name="mostCommonDate" [(ngModel)]="mostCommonForm.date" ngbDatepicker #mostCommonDate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="mostCommonDate.toggle()" type="button"></button>
+            </div>
+          </div>
+          <div class="invalid-feedback">
+            Please enter the start date.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3 align-self-end">
+          <button class="btn btn-primary btn-md btn-block" (click)="findMostCommonType()">Find</button>
+        </div>
+      </div>
+      </form>
+
+      <h2>Results</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Zip Code</th>
+              <th>Request type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12212</td>
+              <td>Lorem</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>
-
-<h2>Results</h2>
-<div class="table-responsive">
-  <table class="table table-striped table-sm">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-        <th>Header</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1,001</td>
-        <td>Lorem</td>
-        <td>ipsum</td>
-        <td>dolor</td>
-        <td>sit</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
