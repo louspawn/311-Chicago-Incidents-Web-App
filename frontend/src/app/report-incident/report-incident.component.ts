@@ -27,7 +27,7 @@ export class ReportIncidentComponent implements OnInit {
     latitude: 35,
     longitude: -90,
     streetNumber: 15,
-    typeOfServiceRequest: 'ALLEY_LIGHTS_OUT',
+    typeOfServiceRequest: 'ABANDONED_VEHICLE',
     xcoordinate: 121212.32123,
     ycoordinate: 12211212,
     zipCode: 123213

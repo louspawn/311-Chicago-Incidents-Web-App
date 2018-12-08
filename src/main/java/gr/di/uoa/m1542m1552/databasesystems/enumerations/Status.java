@@ -1,4 +1,4 @@
-package gr.di.uoa.m1542m1552.databasesystems.domain;
+package gr.di.uoa.m1542m1552.databasesystems.enumerations;
 
 public enum Status {
     Completed("Completed"),

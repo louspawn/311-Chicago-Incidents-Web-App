@@ -80,7 +80,7 @@
       <div class="mb-3">
         <label for="vehicle_model">Vehicle Model</label>
         <div class="input-group">
-          <select [(ngModel)]="request.vehicle_model" name="vehicle_model" class="custom-select form-control" id="vehicle_model" required>
+          <select [(ngModel)]="request.vehicleModel" name="vehicle_model" class="custom-select form-control" id="vehicle_model" required>
               <option value="undefined" selected disabled>Select vehicle model</option>
               <option *ngFor="let vehicle_model of vehicleModel" [value]="vehicle_model.value">{{ vehicle_model.name }}</option>
           </select>
@@ -93,7 +93,7 @@
       <div class="mb-3">
         <label for="vehicle_color">Vehicle Color</label>
         <div class="input-group">
-          <select [(ngModel)]="request.vehicle_color" name="vehicle_color" class="custom-select form-control" id="vehicle_color" required>
+          <select [(ngModel)]="request.vehicleColor" name="vehicle_color" class="custom-select form-control" id="vehicle_color" required>
               <option value="undefined" selected disabled>Select vehicle color</option>
               <option *ngFor="let vehicle_color of vehicleColor" [value]="vehicle_color.value">{{ vehicle_color.name }}</option>
           </select>
@@ -106,14 +106,14 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="licence_plate">Licence plate</label>
-          <input [(ngModel)]="request.licence_plate" name="licence_plate" type="text" class="form-control" id="licence_plate" placeholder="FFX580" required>
+          <input [(ngModel)]="request.licensePlate" name="licence_plate" type="text" class="form-control" id="licence_plate" placeholder="FFX580" required>
           <div class="invalid-feedback" style="width: 100%;">
             Licence plate is required.
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="days_abandoned">Days abandoned</label>
-          <input [(ngModel)]="request.days_abandoned" name="days_abandoned" type="number" class="form-control" id="days_abandoned" placeholder="5" required>
+          <input [(ngModel)]="request.daysReported" name="days_abandoned" type="number" class="form-control" id="days_abandoned" placeholder="5" required>
           <div class="invalid-feedback" style="width: 100%;">
             Days abandoned is required.
           </div>
@@ -125,7 +125,7 @@
       <div class="mb-3">
         <label for="graffiti_location">Graffiti Location</label>
         <div class="input-group">
-          <select [(ngModel)]="request.graffiti_location" name="graffiti_location" class="custom-select form-control" id="graffiti_location" required>
+          <select [(ngModel)]="request.whereIsLocated" name="graffiti_location" class="custom-select form-control" id="graffiti_location" required>
               <option value="undefined" selected disabled>Select graffiti location</option>
               <option *ngFor="let graffiti_location of graffitiLocation" [value]="graffiti_location.value">{{ graffiti_location.name }}</option>
           </select>
@@ -138,7 +138,7 @@
       <div class="mb-3">
         <label for="graffiti_surface">Graffiti Surface</label>
         <div class="input-group">
-          <select [(ngModel)]="request.graffiti_surface" name="graffiti_surface" class="custom-select form-control" id="graffiti_surface" required>
+          <select [(ngModel)]="request.typeOfSurfaceIsOn" name="graffiti_surface" class="custom-select form-control" id="graffiti_surface" required>
               <option value="undefined" selected disabled>Select graffiti surface</option>
               <option *ngFor="let graffiti_surface of graffitiSurface" [value]="graffiti_surface.value">{{ graffiti_surface.name }}</option>
           </select>
@@ -153,7 +153,7 @@
       <div class="mb-3">
         <label for="sanitation_code_nature">Sanitation Code Nature</label>
         <div class="input-group">
-          <select [(ngModel)]="request.sanitation_code_nature" name="sanitation_code_nature" class="custom-select form-control" id="sanitation_code_nature" required>
+          <select [(ngModel)]="request.natureOfCodeViolation" name="sanitation_code_nature" class="custom-select form-control" id="sanitation_code_nature" required>
               <option value="undefined" selected disabled>Select sanitation code nature</option>
               <option *ngFor="let sanitation_code_nature of sanitationCodeNature" [value]="sanitation_code_nature.value">{{ sanitation_code_nature.name }}</option>
           </select>
@@ -168,7 +168,7 @@
       <div class="mb-3">
         <label for="tree_location">Tree location</label>
         <div class="input-group">
-          <select [(ngModel)]="request.tree_location" name="tree_location" class="custom-select form-control" id="tree_location" required>
+          <select [(ngModel)]="request.whereIsLocated" name="tree_location" class="custom-select form-control" id="tree_location" required>
               <option value="undefined" selected disabled>Select tree location</option>
               <option *ngFor="let tree_location of treeLocation" [value]="tree_location.value">{{ tree_location.name }}</option>
           </select>

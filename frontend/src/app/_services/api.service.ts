@@ -65,11 +65,21 @@ export class ApiService {
 
   /** POST: add a new request to the server */
   addRequest (request): Observable<any> {
-    const url = this.apiUrl + this.getUrlPathForType(request.type);
+    const url = this.apiUrl + this.getUrlPathForType(request.typeOfServiceRequest);
     console.log(url);
     return this.http.post<any>(url, request, httpOptions).pipe(
       tap((response) => console.log(`added request w/ id=${response.id}`)),
       catchError(this.handleError<any>('addRequest'))
+    );
+  }
+
+  /** POST: add a new user to the server */
+  addUser (user): Observable<any> {
+    const url = this.apiUrl + 'users';
+    console.log(url);
+    return this.http.post<any>(url, user, httpOptions).pipe(
+      tap((response) => console.log(`added user w/ id=${response.id}`)),
+      catchError(this.handleError<any>('addUser'))
     );
   }
 
@@ -123,6 +133,10 @@ export class ApiService {
         return 'rodent_baiting_requests';
       case 'SANITATION_CODE_COMPLAINTS':
         return 'sanitation_code_complaints_requests';
+      case 'TREE_DEBRIS':
+        return 'tree_debris_requests';
+      case 'TREE_TRIMS':
+        return 'tree_trims_requests';
       default:
         return 'requests';
     }

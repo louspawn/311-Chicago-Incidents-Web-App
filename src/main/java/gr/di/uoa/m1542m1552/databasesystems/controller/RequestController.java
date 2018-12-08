@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gr.di.uoa.m1542m1552.databasesystems.domain.*;
 import gr.di.uoa.m1542m1552.databasesystems.service.*;
+import gr.di.uoa.m1542m1552.databasesystems.enumerations.*;
 
 @RestController
 class RequestController {

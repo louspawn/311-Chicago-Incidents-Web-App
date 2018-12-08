@@ -2,6 +2,7 @@
 const PROXY_CONFIG = [
     {
         context: [
+            "/users",
             "/requests",
             "/abandoned_vehicles_requests",
             "/garbage_carts_requests",
