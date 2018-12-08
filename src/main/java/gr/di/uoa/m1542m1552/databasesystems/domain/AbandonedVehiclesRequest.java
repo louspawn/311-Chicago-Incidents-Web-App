@@ -24,10 +24,10 @@ public class AbandonedVehiclesRequest extends Request {
     private String mostRecentAction;
 
     @Column(nullable = true)
-    private int daysReported;
+    private Integer daysReported;
 
     @Column(nullable = true)
-    private int ssa;
+    private Integer ssa;
 
     public String getLicensePlate() {
         return this.licensePlate;
@@ -69,19 +69,19 @@ public class AbandonedVehiclesRequest extends Request {
         this.mostRecentAction = mostRecentAction;
     }
 
-    public int getDaysReported() {
+    public Integer getDaysReported() {
         return this.daysReported;
     }
 
-    public void setDaysReported(int daysReported) {
+    public void setDaysReported(Integer daysReported) {
         this.daysReported = daysReported;
     }
 
-    public int getSsa() {
+    public Integer getSsa() {
         return this.ssa;
     }
 
-    public void setSsa(int ssa) {
+    public void setSsa(Integer ssa) {
         this.ssa = ssa;
     }
 }

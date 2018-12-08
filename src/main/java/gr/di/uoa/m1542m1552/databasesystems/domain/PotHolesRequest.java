@@ -15,10 +15,10 @@ public class PotHolesRequest extends Request {
     private String mostRecentAction;
 
     @Column(nullable = true)
-    private int numberOfPotHolesFilledOnBlock;
+    private Integer numberOfPotHolesFilledOnBlock;
 
     @Column(nullable = true)
-    private int ssa;
+    private Integer ssa;
 
     public String getCurrentActivity() {
         return this.currentActivity;
@@ -36,19 +36,19 @@ public class PotHolesRequest extends Request {
         this.mostRecentAction = mostRecentAction;
     }
 
-    public int getNumberOfPotHolesFilledOnBlock() {
+    public Integer getNumberOfPotHolesFilledOnBlock() {
         return this.numberOfPotHolesFilledOnBlock;
     }
 
-    public void setNumberOfPotHolesFilledOnBlock(int numberOfPotHolesFilledOnBlock) {
+    public void setNumberOfPotHolesFilledOnBlock(Integer numberOfPotHolesFilledOnBlock) {
         this.numberOfPotHolesFilledOnBlock = numberOfPotHolesFilledOnBlock;
     }
 
-    public int getSsa() {
+    public Integer getSsa() {
         return this.ssa;
     }
 
-    public void setSsa(int ssa) {
+    public void setSsa(Integer ssa) {
         this.ssa = ssa;
     }
 }

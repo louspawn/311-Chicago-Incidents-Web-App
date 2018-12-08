@@ -9,13 +9,13 @@ import javax.persistence.Table;
 public class RodentBaitingRequest extends Request {
 
     @Column(nullable = true)
-    private int numberOfPremisesBaited;
+    private Integer numberOfPremisesBaited;
 
     @Column(nullable = true)
-    private int numberOfPremisesWithGarbage;
+    private Integer numberOfPremisesWithGarbage;
 
     @Column(nullable = true)
-    private int numberOfPremisesWithRats;
+    private Integer numberOfPremisesWithRats;
 
     @Column(nullable = true)
     private String currentActivity;
@@ -23,27 +23,27 @@ public class RodentBaitingRequest extends Request {
     @Column(nullable = true)
     private String mostRecentAction;
 
-    public int getNumberOfPremisesBaited() {
+    public Integer getNumberOfPremisesBaited() {
         return this.numberOfPremisesBaited;
     }
 
-    public void setNumberOfPremisesBaited(int numberOfPremisesBaited) {
+    public void setNumberOfPremisesBaited(Integer numberOfPremisesBaited) {
         this.numberOfPremisesBaited = numberOfPremisesBaited;
     }
 
-    public int getNumberOfPremisesWithGarbage() {
+    public Integer getNumberOfPremisesWithGarbage() {
         return this.numberOfPremisesWithGarbage;
     }
 
-    public void setNumberOfPremisesWithGarbage(int numberOfPremisesWithGarbage) {
+    public void setNumberOfPremisesWithGarbage(Integer numberOfPremisesWithGarbage) {
         this.numberOfPremisesWithGarbage = numberOfPremisesWithGarbage;
     }
 
-    public int getNumberOfPremisesWithRats() {
+    public Integer getNumberOfPremisesWithRats() {
         return this.numberOfPremisesWithRats;
     }
 
-    public void setNumberOfPremisesWithRats(int numberOfPremisesWithRats) {
+    public void setNumberOfPremisesWithRats(Integer numberOfPremisesWithRats) {
         this.numberOfPremisesWithRats = numberOfPremisesWithRats;
     }
 

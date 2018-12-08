@@ -15,7 +15,7 @@ public class GraffitiRemovalRequest extends Request {
     private String whereIsLocated;
 
     @Column(nullable = true)
-    private int ssa;
+    private Integer ssa;
 
     public String getTypeOfSurfaceIsOn() {
         return this.typeOfSurfaceIsOn;
@@ -33,11 +33,11 @@ public class GraffitiRemovalRequest extends Request {
         this.whereIsLocated = whereIsLocated;
     }
 
-    public int getSsa() {
+    public Integer getSsa() {
         return this.ssa;
     }
 
-    public void setSsa(int ssa) {
+    public void setSsa(Integer ssa) {
         this.ssa = ssa;
     }
 }

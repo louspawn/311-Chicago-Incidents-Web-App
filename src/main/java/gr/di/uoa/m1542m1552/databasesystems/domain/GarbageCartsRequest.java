@@ -8,7 +8,7 @@ import javax.persistence.Table;
 @Table(name="garbage_carts_request", schema="public")
 public class GarbageCartsRequest extends Request {
     // PK and FK columns are most often indexed, so sharing the PK can reduce
-    // the index footprint by half
+    // the index footprInteger by half
 
     // PrimaryKeyJoinColumn vs JoinColumn
     // https://stackoverflow.com/questions/3417097/jpa-difference-between-joincolumn-and-primarykeyjoincolumn
@@ -24,10 +24,10 @@ public class GarbageCartsRequest extends Request {
     // https://vladmihalcea.com/the-best-way-to-use-entity-inheritance-with-jpa-and-hibernate/
 
     @Column(nullable = true)
-    private int numberOfBlackCartsDelivered;
+    private Integer numberOfBlackCartsDelivered;
 
     @Column(nullable = true)
-    private int ssa;
+    private Integer ssa;
 
     @Column(nullable = true)
     private String currentActivity;
@@ -35,19 +35,19 @@ public class GarbageCartsRequest extends Request {
     @Column(nullable = true)
     private String mostRecentAction;
 
-    public int getNumberOfBlackCartsDelivered() {
+    public Integer getNumberOfBlackCartsDelivered() {
         return this.numberOfBlackCartsDelivered;
     }
 
-    public void setNumberOfBlackCartsDelivered(int numberOfBlackCartsDelivered) {
+    public void setNumberOfBlackCartsDelivered(Integer numberOfBlackCartsDelivered) {
         this.numberOfBlackCartsDelivered = numberOfBlackCartsDelivered;
     }
 
-    public int getSsa() {
+    public Integer getSsa() {
         return this.ssa;
     }
 
-    public void setSsa(int ssa) {
+    public void setSsa(Integer ssa) {
         this.ssa = ssa;
     }
 
