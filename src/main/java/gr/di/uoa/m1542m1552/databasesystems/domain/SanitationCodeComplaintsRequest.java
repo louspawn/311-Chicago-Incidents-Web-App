@@ -10,4 +10,12 @@ public class SanitationCodeComplaintsRequest extends Request {
 
     @Column(nullable = true)
     private String natureOfCodeViolation;
+
+    public String getNatureOfCodeViolation() {
+        return this.natureOfCodeViolation;
+    }
+
+    public void setNatureOfCodeViolation(String natureOfCodeViolation) {
+        this.natureOfCodeViolation = natureOfCodeViolation;
+    }
 }

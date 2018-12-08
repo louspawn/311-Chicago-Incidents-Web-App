@@ -23,6 +23,43 @@ public class RodentBaitingRequest extends Request {
     @Column(nullable = true)
     private String mostRecentAction;
 
-    @Column(nullable = true)
-    private int ssa;
+    public int getNumberOfPremisesBaited() {
+        return this.numberOfPremisesBaited;
+    }
+
+    public void setNumberOfPremisesBaited(int numberOfPremisesBaited) {
+        this.numberOfPremisesBaited = numberOfPremisesBaited;
+    }
+
+    public int getNumberOfPremisesWithGarbage() {
+        return this.numberOfPremisesWithGarbage;
+    }
+
+    public void setNumberOfPremisesWithGarbage(int numberOfPremisesWithGarbage) {
+        this.numberOfPremisesWithGarbage = numberOfPremisesWithGarbage;
+    }
+
+    public int getNumberOfPremisesWithRats() {
+        return this.numberOfPremisesWithRats;
+    }
+
+    public void setNumberOfPremisesWithRats(int numberOfPremisesWithRats) {
+        this.numberOfPremisesWithRats = numberOfPremisesWithRats;
+    }
+
+    public String getCurrentActivity() {
+        return this.currentActivity;
+    }
+
+    public void setCurrentActivity(String currentActivity) {
+        this.currentActivity = currentActivity;
+    }
+
+    public String getMostRecentAction() {
+        return this.mostRecentAction;
+    }
+
+    public void setMostRecentAction(String mostRecentAction) {
+        this.mostRecentAction = mostRecentAction;
+    }
 }

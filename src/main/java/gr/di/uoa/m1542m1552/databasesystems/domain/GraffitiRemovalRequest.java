@@ -16,4 +16,28 @@ public class GraffitiRemovalRequest extends Request {
 
     @Column(nullable = true)
     private int ssa;
+
+    public String getTypeOfSurfaceIsOn() {
+        return this.typeOfSurfaceIsOn;
+    }
+
+    public void setTypeOfSurfaceIsOn(String typeOfSurfaceIsOn) {
+        this.typeOfSurfaceIsOn = typeOfSurfaceIsOn;
+    }
+
+    public String getWhereIsLocated() {
+        return this.whereIsLocated;
+    }
+
+    public void setWhereIsLocated(String whereIsLocated) {
+        this.whereIsLocated = whereIsLocated;
+    }
+
+    public int getSsa() {
+        return this.ssa;
+    }
+
+    public void setSsa(int ssa) {
+        this.ssa = ssa;
+    }
 }

@@ -19,4 +19,36 @@ public class PotHolesRequest extends Request {
 
     @Column(nullable = true)
     private int ssa;
+
+    public String getCurrentActivity() {
+        return this.currentActivity;
+    }
+
+    public void setCurrentActivity(String currentActivity) {
+        this.currentActivity = currentActivity;
+    }
+
+    public String getMostRecentAction() {
+        return this.mostRecentAction;
+    }
+
+    public void setMostRecentAction(String mostRecentAction) {
+        this.mostRecentAction = mostRecentAction;
+    }
+
+    public int getNumberOfPotHolesFilledOnBlock() {
+        return this.numberOfPotHolesFilledOnBlock;
+    }
+
+    public void setNumberOfPotHolesFilledOnBlock(int numberOfPotHolesFilledOnBlock) {
+        this.numberOfPotHolesFilledOnBlock = numberOfPotHolesFilledOnBlock;
+    }
+
+    public int getSsa() {
+        return this.ssa;
+    }
+
+    public void setSsa(int ssa) {
+        this.ssa = ssa;
+    }
 }

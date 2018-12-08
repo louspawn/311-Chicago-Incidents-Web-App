@@ -9,11 +9,14 @@ import javax.persistence.Table;
 public class TreeTrimsRequest extends Request {
 
     @Column(nullable = true)
-    private String currentActivity;
-
-    @Column(nullable = true)
-    private String mostRecentAction;
-
-    @Column(nullable = true)
     private String whereIsLocated;
+
+    public String getWhereIsLocated() {
+        return this.whereIsLocated;
+    }
+
+    public void setWhereIsLocated(String whereIsLocated) {
+        this.whereIsLocated = whereIsLocated;
+    }
+
 }

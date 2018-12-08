@@ -34,4 +34,36 @@ public class GarbageCartsRequest extends Request {
 
     @Column(nullable = true)
     private String mostRecentAction;
+
+    public int getNumberOfBlackCartsDelivered() {
+        return this.numberOfBlackCartsDelivered;
+    }
+
+    public void setNumberOfBlackCartsDelivered(int numberOfBlackCartsDelivered) {
+        this.numberOfBlackCartsDelivered = numberOfBlackCartsDelivered;
+    }
+
+    public int getSsa() {
+        return this.ssa;
+    }
+
+    public void setSsa(int ssa) {
+        this.ssa = ssa;
+    }
+
+    public String getCurrentActivity() {
+        return this.currentActivity;
+    }
+
+    public void setCurrentActivity(String currentActivity) {
+        this.currentActivity = currentActivity;
+    }
+
+    public String getMostRecentAction() {
+        return this.mostRecentAction;
+    }
+
+    public void setMostRecentAction(String mostRecentAction) {
+        this.mostRecentAction = mostRecentAction;
+    }
 }
