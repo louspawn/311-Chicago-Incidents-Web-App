@@ -1,17 +1,17 @@
 
 export class FormData {
   public static readonly reportTypes = [
-      { name: 'Abandoned Vehicle', value: 'Abandoned Vehicle' },
-      { name: 'Alley Light Out', value: 'Alley Light Out' },
-      { name: 'Garbage Cart', value: 'Garbage Cart' },
-      { name: 'Graffiti Removal', value: 'Graffiti Removal' },
-      { name: 'Pot Hole', value: 'Pot Hole' },
-      { name: 'Rodent Baiting', value: 'Rodent Baiting' },
-      { name: 'Sanitation Code Complaint', value: 'Sanitation Code Complaint' },
-      { name: 'Lights All Out', value: 'Lights All Out' },
-      { name: 'Street Light One Out', value: 'Street Light One Out' },
-      { name: 'Tree Debris', value: 'Tree Debris' },
-      { name: 'Tree Trims', value: 'Tree Trims' }
+      { name: 'Abandoned Vehicle', value: 'ABANDONED_VEHICLE' },
+      { name: 'Alley Light Out', value: 'ALLEY_LIGHTS_OUT' },
+      { name: 'Garbage Cart', value: 'GARBAGE_CARTS' },
+      { name: 'Graffiti Removal', value: 'GRAFFITI_REMOVAL' },
+      { name: 'Pot Hole', value: 'POT_HOLES' },
+      { name: 'Rodent Baiting', value: 'RODENT_BAITING' },
+      { name: 'Sanitation Code Complaint', value: 'SANITATION_CODE_COMPLAINTS' },
+      { name: 'Lights All Out', value: 'LIGHTS_ALL_OUT' },
+      { name: 'Street Light One Out', value: 'LIGHT_ONE_OUT' },
+      { name: 'Tree Debris', value: 'TREE_DEBRIS' },
+      { name: 'Tree Trims', value: 'TREE_TRIMS' }
   ];
 
   public static readonly vehicleModel = [

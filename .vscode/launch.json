@@ -8,7 +8,8 @@
             "console": "internalConsole",
             "stopOnEntry": false,
             "mainClass": "gr.di.uoa.m1542m1552.databasesystems.ChicagoIncidents",
-            "args": ""
+            "args": "",
+            "projectName": "311-Chicago-Incidents-Web-App"
         }
     ]
 }

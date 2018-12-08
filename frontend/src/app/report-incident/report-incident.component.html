@@ -7,7 +7,7 @@
     <div class="mb-3">
       <label for="type">Type</label>
       <div class="input-group">
-        <select [(ngModel)]="request.type" name="type" class="custom-select form-control" id="type" required>
+        <select [(ngModel)]="request.typeOfServiceRequest" name="type" class="custom-select form-control" id="type" required>
             <option value="undefined" selected disabled>Select type</option>
             <option *ngFor="let type of reportTypes" [value]="type.value">{{ type.name }}</option>
         </select>
@@ -37,14 +37,14 @@
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="x-coordinate">X-Coordinate</label>
-        <input [(ngModel)]="request.x_coordinate" name="x-coordinate" type="text" class="form-control" id="x-coordinate" placeholder="1147716.70081754" required>
+        <input [(ngModel)]="request.xcoordinate" name="x-coordinate" type="text" class="form-control" id="x-coordinate" placeholder="1147716.70081754" required>
         <div class="invalid-feedback" style="width: 100%;">
           X-Coordinate is required.
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="y-coordinate">Y-Coordinate</label>
-        <input [(ngModel)]="request.y_coordinate" name="y-coordinate" type="text" class="form-control" id="y-coordinate" placeholder="1937054.16743335" required>
+        <input [(ngModel)]="request.ycoordinate" name="y-coordinate" type="text" class="form-control" id="y-coordinate" placeholder="1937054.16743335" required>
         <div class="invalid-feedback" style="width: 100%;">
           Y-Coordinate is required.
         </div>
@@ -53,7 +53,7 @@
 
     <div class="mb-3">
       <label for="address">Address</label>
-      <input [(ngModel)]="request.address" name="address" type="text" class="form-control" id="address" placeholder="Something Main St" required>
+      <input [(ngModel)]="request.streetAddress" name="address" type="text" class="form-control" id="address" placeholder="Something Main St" required>
       <div class="invalid-feedback">
         Please enter the address.
       </div>
@@ -62,21 +62,21 @@
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="zip-code">Zip Code</label>
-        <input [(ngModel)]="request.zip_code" name="zip-code" type="text" class="form-control" id="zip-code" placeholder="99524" required>
+        <input [(ngModel)]="request.zipCode" name="zip-code" type="text" class="form-control" id="zip-code" placeholder="99524" required>
         <div class="invalid-feedback" style="width: 100%;">
           Zip code is required.
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="number">Number</label>
-        <input [(ngModel)]="request.number" name="number" type="number" class="form-control" id="number" placeholder="16" required>
+        <input [(ngModel)]="request.streetNumber" name="number" type="number" class="form-control" id="number" placeholder="16" required>
         <div class="invalid-feedback" style="width: 100%;">
           Number is required.
         </div>
       </div>
     </div>
 
-    <div *ngIf="request.type === 'Abandoned Vehicle'">
+    <div *ngIf="request.typeOfServiceRequest === 'ABANDONED_VEHICLE'">
       <div class="mb-3">
         <label for="vehicle_model">Vehicle Model</label>
         <div class="input-group">
@@ -121,7 +121,7 @@
       </div>
     </div>
 
-    <div *ngIf="request.type === 'Graffiti Removal'">
+    <div *ngIf="request.typeOfServiceRequest === 'GRAFFITI_REMOVAL'">
       <div class="mb-3">
         <label for="graffiti_location">Graffiti Location</label>
         <div class="input-group">
@@ -149,7 +149,7 @@
       </div>
     </div>
 
-    <div *ngIf="request.type === 'Sanitation Code Complaint'">
+    <div *ngIf="request.typeOfServiceRequest === 'SANITATION_CODE_COMPLAINTS'">
       <div class="mb-3">
         <label for="sanitation_code_nature">Sanitation Code Nature</label>
         <div class="input-group">
@@ -164,7 +164,7 @@
       </div>
     </div>
 
-    <div *ngIf="request.type === 'Tree Debris' || request.type === 'Tree Trims'">
+    <div *ngIf="request.typeOfServiceRequest === 'TREE_DEBRIS' || request.typeOfServiceRequest === 'TREE_TRIMS'">
       <div class="mb-3">
         <label for="tree_location">Tree location</label>
         <div class="input-group">

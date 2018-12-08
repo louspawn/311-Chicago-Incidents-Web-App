@@ -1,5 +1,7 @@
 package gr.di.uoa.m1542m1552.databasesystems.controller;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +37,11 @@ class RequestController {
   //Requests
 	@PostMapping("/requests")
 	public Request createRequest(@RequestBody Request newRequest) {
-		return requestService.createRequest(newRequest);
+    newRequest.setServiceRequestNumber(newRequest.getTypeOfServiceRequest() + "-" + new Timestamp(System.currentTimeMillis()));
+    newRequest.setLocation("{'latitude':'" + newRequest.getLatitude() + "','longitude':'" + newRequest.getLongitude() + "'}");
+    newRequest.setStatus(Status.Open.getText());
+
+    return requestService.createRequest(newRequest);
 	}
 
   @GetMapping("/requests/{requestId}")
