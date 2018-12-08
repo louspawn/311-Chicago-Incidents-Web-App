@@ -54,22 +54,22 @@ public class Request {
     private String streetAddress;
 
     @Column(nullable = true)
-    private int streetNumber;
+    private Integer streetNumber;
 
     @Column(nullable = true)
-    private int zipCode;
+    private Integer zipCode;
 
     @Column(nullable = true)
-    private double xCoordinate;
+    private Double xCoordinate;
 
     @Column(nullable = true)
-    private double yCoordinate;
+    private Double yCoordinate;
 
     @Column(nullable = true)
-    private double latitude;
+    private Double latitude;
 
     @Column(nullable = true)
-    private double longitude;
+    private Double longitude;
 
     // https://vladmihalcea.com/how-to-store-schema-less-eav-entity-attribute-value-data-using-json-and-hibernate/
     // https://stackoverflow.com/questions/40802656/persisting-a-json-object-using-hibernate-and-jpa
@@ -79,11 +79,11 @@ public class Request {
     // @JoinColumn(name = "rollNo", nullable = false)
     // private Student student;
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -135,51 +135,51 @@ public class Request {
         this.streetAddress = streetAddress;
     }
 
-    public int getStreetNumber() {
+    public Integer getStreetNumber() {
         return this.streetNumber;
     }
 
-    public void setStreetNumber(int streetNumber) {
+    public void setStreetNumber(Integer streetNumber) {
         this.streetNumber = streetNumber;
     }
 
-    public int getZipCode() {
+    public Integer getZipCode() {
         return this.zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Integer zipCode) {
         this.zipCode = zipCode;
     }
 
-    public double getXCoordinate() {
+    public Double getXCoordinate() {
         return this.xCoordinate;
     }
 
-    public void setXCoordinate(double xCoordinate) {
+    public void setXCoordinate(Double xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
-    public double getYCoordinate() {
+    public Double getYCoordinate() {
         return this.yCoordinate;
     }
 
-    public void setYCoordinate(double yCoordinate) {
+    public void setYCoordinate(Double yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return this.latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return this.longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
