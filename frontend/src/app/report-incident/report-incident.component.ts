@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormData } from '../_classes/form-data';
+import { ApiService } from '../_services/api.service';
 
 @Component({
   selector: 'app-report-incident',
@@ -17,15 +18,31 @@ export class ReportIncidentComponent implements OnInit {
   sanitationCodeNature = FormData.sanitationCodeNature;
   treeLocation = FormData.treeLocation;
 
-  request = {};
+  // request = {id: null};
+  request = {
+    id: null,
+    creationDate: null,
+    serviceRequestNumber: null,
+    streetAddress: 'Address',
+    latitude: 35,
+    longitude: -90,
+    streetNumber: 15,
+    typeOfServiceRequest: 'ALLEY_LIGHTS_OUT',
+    xcoordinate: 121212.32123,
+    ycoordinate: 12211212,
+    zipCode: 123213
+  };
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
   }
 
   sendRequest() {
     console.log(this.request);
+    this.apiService.addRequest(this.request).subscribe(response => {
+      console.log(response);
+    });
   }
 
 }

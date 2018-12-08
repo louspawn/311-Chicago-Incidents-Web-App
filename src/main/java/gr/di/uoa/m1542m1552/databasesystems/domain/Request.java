@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="request", schema="public")
@@ -29,14 +29,15 @@ public class Request {
     private Integer id;
 
     @Column(updatable = false, nullable = false)
-    String serviceRequestNumber;
+    private String serviceRequestNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false, nullable = false)
     // TODO: uncomment after db import
-    // @CreatedDate
+    @CreationTimestamp
     private Date creationDate;
 
+    @Column(nullable = false)
     private String status;
 
     // TODO: only date
@@ -51,6 +52,9 @@ public class Request {
 
     @Column(nullable = false)
     private String streetAddress;
+
+    @Column(nullable = true)
+    private int streetNumber;
 
     @Column(nullable = true)
     private int zipCode;
@@ -129,6 +133,14 @@ public class Request {
 
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
+    }
+
+    public int getStreetNumber() {
+        return this.streetNumber;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     public int getZipCode() {

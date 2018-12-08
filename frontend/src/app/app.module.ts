@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -28,6 +28,7 @@ import { SearchReportsComponent } from './search-reports/search-reports.componen
     NgbModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     AngularFontAwesomeModule
   ],
   providers: [],
