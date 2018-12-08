@@ -34,13 +34,16 @@ class RequestController {
   @Autowired
   TreeTrimsRequestService treeTrimsRequestService;
 
-  //Requests
-	@PostMapping("/requests")
-	public Request createRequest(@RequestBody Request newRequest) {
+  private void setDefaultValues(Request newRequest) {
     newRequest.setServiceRequestNumber(newRequest.getTypeOfServiceRequest() + "-" + new Timestamp(System.currentTimeMillis()));
     newRequest.setLocation("{'latitude':'" + newRequest.getLatitude() + "','longitude':'" + newRequest.getLongitude() + "'}");
     newRequest.setStatus(Status.Open.getText());
+  }
 
+  //Requests
+	@PostMapping("/requests")
+	public Request createRequest(@RequestBody Request newRequest) {
+    setDefaultValues(newRequest);
     return requestService.createRequest(newRequest);
 	}
 
@@ -59,6 +62,7 @@ class RequestController {
   // Abandoned Vehicles 
 	@PostMapping("/abandoned_vehicles_requests")
 	public AbandonedVehiclesRequest createAbandonedVehiclesRequest(@RequestBody AbandonedVehiclesRequest newRequest) {
+    setDefaultValues(newRequest);
 		return abandonedVehiclesRequestService.createRequest(newRequest);
 	}
 
@@ -77,6 +81,7 @@ class RequestController {
   // Garbage Carts
 	@PostMapping("/garbage_carts_requests")
 	public GarbageCartsRequest createGarbageCartsRequest(@RequestBody GarbageCartsRequest newRequest) {
+    setDefaultValues(newRequest);
 		return garbageCartsRequestService.createRequest(newRequest);
 	}
 
@@ -95,6 +100,7 @@ class RequestController {
   // Graffiti Removal
 	@PostMapping("/graffiti_removal_requests")
 	public GraffitiRemovalRequest createGraffitiRemovalRequest(@RequestBody GraffitiRemovalRequest newRequest) {
+    setDefaultValues(newRequest);
 		return graffitiRemovalRequestService.createRequest(newRequest);
 	}
 
@@ -113,6 +119,7 @@ class RequestController {
   // Pot Holes
 	@PostMapping("/pot_holes_requests")
 	public PotHolesRequest createPotHolesRequest(@RequestBody PotHolesRequest newRequest) {
+    setDefaultValues(newRequest);
 		return potHolesRequestService.createRequest(newRequest);
 	}
 
@@ -131,6 +138,7 @@ class RequestController {
   // Rodent Baiting
 	@PostMapping("/rodent_baiting_requests")
 	public RodentBaitingRequest createRodentBaitingRequest(@RequestBody RodentBaitingRequest newRequest) {
+    setDefaultValues(newRequest);
 		return rodentBaitingRequestService.createRequest(newRequest);
 	}
 
@@ -149,6 +157,7 @@ class RequestController {
   // Sanitation Code Complaints
 	@PostMapping("/sanitation_code_complaints_requests")
 	public SanitationCodeComplaintsRequest createSanitationCodeComplaintsRequest(@RequestBody SanitationCodeComplaintsRequest newRequest) {
+    setDefaultValues(newRequest);
 		return sanitationCodeComplaintsRequestService.createRequest(newRequest);
 	}
 
@@ -167,6 +176,7 @@ class RequestController {
   // Tree Debris
 	@PostMapping("/tree_debris_requests")
 	public TreeDebrisRequest createTreeDebrisRequest(@RequestBody TreeDebrisRequest newRequest) {
+    setDefaultValues(newRequest);
 		return treeDebrisRequestService.createRequest(newRequest);
 	}
 
@@ -185,6 +195,7 @@ class RequestController {
   // Tree Trims
 	@PostMapping("/tree_trims_requests")
 	public TreeTrimsRequest createTreeTrimsRequest(@RequestBody TreeTrimsRequest newRequest) {
+    setDefaultValues(newRequest);
 		return treeTrimsRequestService.createRequest(newRequest);
 	}
 
