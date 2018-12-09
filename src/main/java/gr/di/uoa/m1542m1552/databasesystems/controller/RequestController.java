@@ -1,6 +1,9 @@
 package gr.di.uoa.m1542m1552.databasesystems.controller;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +12,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import gr.di.uoa.m1542m1552.databasesystems.domain.*;
-import gr.di.uoa.m1542m1552.databasesystems.service.*;
-import gr.di.uoa.m1542m1552.databasesystems.enumerations.*;
+import gr.di.uoa.m1542m1552.databasesystems.domain.AbandonedVehiclesRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.GarbageCartsRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.GraffitiRemovalRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.PotHolesRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
+import gr.di.uoa.m1542m1552.databasesystems.domain.RodentBaitingRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.SanitationCodeComplaintsRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.TreeDebrisRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.TreeTrimsRequest;
+import gr.di.uoa.m1542m1552.databasesystems.enumerations.Status;
+import gr.di.uoa.m1542m1552.databasesystems.service.AbandonedVehiclesRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.GarbageCartsRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.GraffitiRemovalRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.PotHolesRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.RequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.RodentBaitingRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.SanitationCodeComplaintsRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.TreeDebrisRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.TreeTrimsRequestService;
 
 @RestController
 class RequestController {
@@ -57,6 +76,45 @@ class RequestController {
   @GetMapping("/requests")
   public Iterable<Request> getRequests() {
     Iterable<Request> requests = requestService.getRequests();
+    // Page<Request> requests = requestService.getRequests();
+    return requests;
+  }
+
+  @GetMapping("/search2/{streetAddress}")
+  public Iterable<Request> getRequestsByStreetAddress(@PathVariable String streetAddress) {
+    Iterable<Request> requests = requestService.getRequestsByStreetAddress(streetAddress);
+    return requests;
+  }
+
+  @GetMapping("/search/zipCode={zipCode}&streetAddress={streetAddress}")
+  public Iterable<Request> getRequestsByZIPCode(@PathVariable Integer zipCode, 
+                                                @PathVariable String streetAddress) {
+    Iterable<Request> requests = requestService.getRequestsByZipCodeOrStreetAddress(zipCode, streetAddress.toUpperCase());
+    return requests;
+  }
+
+  @GetMapping("/search3/fromDate={fromDateStr}&toDate={toDateStr}")
+  public Object[] getRequestsByStoredFunction1(@PathVariable String fromDateStr,
+                                                        @PathVariable String toDateStr) {
+    Date fromDate, toDate;
+    try {
+      fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(fromDateStr);
+    } catch (ParseException e) {
+      return null;
+	  }  
+    try {
+      toDate = new SimpleDateFormat("yyyy-MM-dd").parse(toDateStr);
+    } catch (ParseException e) {
+      return null;
+    }
+
+    Object[] requests = requestService.getRequestsByStoredFunction1(fromDate, toDate);
+    return requests;
+  }
+
+  @GetMapping("/search4/")
+  public Object[] getRequestsByStoredFunctionTest() {
+    Object[] requests = requestService.getRequestsByStoredFunctionTest();
     return requests;
   }
 
