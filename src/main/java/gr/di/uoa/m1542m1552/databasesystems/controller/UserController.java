@@ -1,6 +1,9 @@
 package gr.di.uoa.m1542m1552.databasesystems.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +19,24 @@ class UserController {
   @Autowired
   UserService userService;
 
-  //Requests
+  // User email existance check
+  @GetMapping("/email_exists/{email:.+}")
+  public boolean emailExists(@PathVariable("email") String email) {
+    System.out.println(email);
+    return userService.emailExists(email);
+  }
+
+  // User registration
   @PostMapping("/users")
   public User createUser(@RequestBody User newUser) {
+    // TODO: Validation needed
+    newUser.setPassword(passwordEncoder().encode(newUser.getPassword()));
     return userService.createUser(newUser);
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
   }
 
 }

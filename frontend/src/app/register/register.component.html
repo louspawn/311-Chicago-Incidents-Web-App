@@ -2,50 +2,61 @@
   <div class="row" style="padding-top: 40px;">
   <div class="col-md-8 offset-md-2">
     <h4 class="mb-3">Register</h4>
-    <form class="needs-validation" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && !emailExists && register()" #f="ngForm" novalidate>
       <div class="mb-3">
         <label for="email">Email</label>
-        <input [(ngModel)]="user.email" name="email"  type="email" class="form-control" id="email" placeholder="batman@iam.com" required>
-        <div class="invalid-feedback">
-          Please enter a valid email address.
+        <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email" placeholder="batman@iam.com"
+               (focus)="emailExists = false" (blur)="emailCheck(email.invalid)" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+        <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+            <div *ngIf="email.errors.required">Email is required</div>
+            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+        </div>
+        <div class="invalid-feedback" [ngStyle]="{'display': emailExists ? 'block' : 'none'}">
+          Email already exists.
         </div>
       </div>
 
       <div class="mb-3">
         <label for="password">Password</label>
-        <input [(ngModel)]="user.password" name="password"  type="password" class="form-control" id="password" required>
-        <div class="invalid-feedback">
-          Please enter a valid password.
+        <input [(ngModel)]="user.password" name="password"  type="password" class="form-control" id="password" minlength="6"
+               #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+        <small id="passwordHelp" class="form-text text-muted">Alphanumeric at least 6 characters long.</small>
+        <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.required">Password is required</div>
+            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="firstName">First name</label>
-          <input [(ngModel)]="user.firstName" name="firstName" type="text" class="form-control" id="firstName" placeholder="Bruce" value="" required>
-          <div class="invalid-feedback">
-            Valid first name is required.
+          <input [(ngModel)]="user.firstName" name="firstName" type="text" class="form-control" id="firstName" placeholder="Bruce" value=""
+                 #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required>
+          <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+              <div *ngIf="firstName.errors.required">First Name is required</div>
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="lastName">Last name</label>
-          <input [(ngModel)]="user.lastName" name="lastName" type="text" class="form-control" id="lastName" placeholder="Wayne" value="" required>
-          <div class="invalid-feedback">
-            Valid last name is required.
+          <input [(ngModel)]="user.lastName" name="lastName" type="text" class="form-control" id="lastName" placeholder="Wayne" value="" 
+                 #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required>
+          <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+              <div *ngIf="lastName.errors.required">Last Name is required</div>
           </div>
         </div>
       </div>
 
       <div class="mb-3">
         <label for="address">Address</label>
-        <input [(ngModel)]="user.address" name="address" type="text" class="form-control" id="address" placeholder="1234 Main St, Gotham" required>
-        <div class="invalid-feedback">
-          Please enter your address.
-        </div>
+        <input [(ngModel)]="user.address" name="address" type="text" class="form-control" id="address" placeholder="1234 Main St, Gotham"
+               #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required>
+        <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+          <div *ngIf="address.errors.required">Address is required</div>
+      </div>
       </div>
 
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="register()">Register</button>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
     </form>
   </div>
 </div>

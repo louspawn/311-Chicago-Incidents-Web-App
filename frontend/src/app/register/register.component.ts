@@ -9,6 +9,7 @@ import { ApiService } from '../_services/api.service';
 })
 export class RegisterComponent implements OnInit {
   user = {};
+  emailExists = false;
 
   constructor(private apiService: ApiService) { }
 
@@ -20,6 +21,19 @@ export class RegisterComponent implements OnInit {
     this.apiService.addUser(this.user).subscribe(response => {
       console.log(response);
     });
+  }
+
+  emailCheck(isInvalid) {
+    if (!isInvalid) {
+      this.apiService.emailExists((<any>this.user).email).subscribe(exists => {
+        console.log(exists);
+        if (exists) {
+          this.emailExists = true;
+        } else {
+          this.emailExists = false;
+        }
+      });
+    }
   }
 
 }

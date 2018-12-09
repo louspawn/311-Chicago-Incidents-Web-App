@@ -17,6 +17,17 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  /** GET: check if email already exists */
+  emailExists (email): Observable<boolean> {
+    const url = this.apiUrl + 'email_exists/' + email;
+    return this.http.get<boolean>(url).pipe(
+        tap(_ => console.log('email_checked')),
+        catchError(this.handleError('emailExists', true))
+      );
+  }
+
+  /** GET heroes from the server */
+
   // /** GET heroes from the server */
   // getHeroes (): Observable<Hero[]> {
   //   return this.http.get<Hero[]>(this.heroesUrl)
@@ -63,16 +74,6 @@ export class ApiService {
 
   //////// Save methods //////////
 
-  /** POST: add a new request to the server */
-  addRequest (request): Observable<any> {
-    const url = this.apiUrl + this.getUrlPathForType(request.typeOfServiceRequest);
-    console.log(url);
-    return this.http.post<any>(url, request, httpOptions).pipe(
-      tap((response) => console.log(`added request w/ id=${response.id}`)),
-      catchError(this.handleError<any>('addRequest'))
-    );
-  }
-
   /** POST: add a new user to the server */
   addUser (user): Observable<any> {
     const url = this.apiUrl + 'users';
@@ -80,6 +81,16 @@ export class ApiService {
     return this.http.post<any>(url, user, httpOptions).pipe(
       tap((response) => console.log(`added user w/ id=${response.id}`)),
       catchError(this.handleError<any>('addUser'))
+    );
+  }
+
+  /** POST: add a new request to the server */
+  addRequest (request): Observable<any> {
+    const url = this.apiUrl + this.getUrlPathForType(request.typeOfServiceRequest);
+    console.log(url);
+    return this.http.post<any>(url, request, httpOptions).pipe(
+      tap((response) => console.log(`added request w/ id=${response.id}`)),
+      catchError(this.handleError<any>('addRequest'))
     );
   }
 
