@@ -35,10 +35,6 @@ code {
     right: -15px;
 }
 
-.dropdown-menu > a {
-    text-align: center;
-}
-
 .dropdown-menu > a:not(.active):hover {
     background-color: rgba(0, 0, 0, 0.2);
     background-image: none;
