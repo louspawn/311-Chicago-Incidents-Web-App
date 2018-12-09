@@ -17,6 +17,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  /** GET: check if email already exists */
+  emailExists (email): Observable<boolean> {
+    const url = this.apiUrl + 'email_exists/' + email;
+    return this.http.get<boolean>(url).pipe(
+        tap(_ => console.log('email_checked')),
+        catchError(this.handleError('emailExists', true))
+      );
+  }
+
   /** GET heroes from the server */
 
   // /** GET heroes from the server */
@@ -64,15 +73,6 @@ export class ApiService {
   // }
 
   //////// Save methods //////////
-
-  /** POST: check if email already exists */
-  emailExists (email): Observable<boolean> {
-    const url = this.apiUrl + 'email_exists';
-    return this.http.post<boolean>(url, email, httpOptions).pipe(
-        tap(_ => console.log('email_checked')),
-        catchError(this.handleError('emailExists', true))
-      );
-  }
 
   /** POST: add a new user to the server */
   addUser (user): Observable<any> {
