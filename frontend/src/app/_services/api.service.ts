@@ -79,8 +79,8 @@ export class ApiService {
     const credentials = {email: user.email, password: user.password};
     console.log(url);
     return this.http.post<any>(url, credentials, httpOptions).pipe(
-      tap((response) => console.log(`attempted login for user w/ email=${response.email}`)),
-      catchError(this.handleError<any>('attemptedLogin'))
+      tap((response) => console.log(`login for user w/ email=${response.email}`)),
+      catchError(this.handleError<any>('login'))
     );
   }
 

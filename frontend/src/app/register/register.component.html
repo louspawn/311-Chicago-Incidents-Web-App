@@ -19,7 +19,7 @@
       <div class="mb-3">
         <label for="password">Password</label>
         <input [(ngModel)]="user.password" name="password"  type="password" class="form-control" id="password" minlength="6"
-               #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+               #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" placeholder="Password" required>
         <small id="passwordHelp" class="form-text text-muted">Alphanumeric at least 6 characters long.</small>
         <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
             <div *ngIf="password.errors.required">Password is required</div>
