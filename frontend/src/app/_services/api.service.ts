@@ -15,11 +15,13 @@ export class ApiService {
 
   private apiUrl = 'http://localhost:4200/';  // URL to web api
 
+  public authToken = {token: null, email: null};
+
   constructor(private http: HttpClient) {}
 
   /** GET: check if email already exists */
   emailExists (email): Observable<boolean> {
-    const url = this.apiUrl + 'email_exists/' + email;
+    const url = this.apiUrl + 'users/email_exists/' + email;
     return this.http.get<boolean>(url).pipe(
         tap(_ => console.log('email_checked')),
         catchError(this.handleError('emailExists', true))
@@ -72,6 +74,16 @@ export class ApiService {
   //   );
   // }
 
+  login(user): Observable<any> {
+    const url = this.apiUrl + 'users/login';
+    const credentials = {email: user.email, password: user.password};
+    console.log(url);
+    return this.http.post<any>(url, credentials, httpOptions).pipe(
+      tap((response) => console.log(`attempted login for user w/ email=${response.email}`)),
+      catchError(this.handleError<any>('attemptedLogin'))
+    );
+  }
+
   //////// Save methods //////////
 
   /** POST: add a new user to the server */
@@ -94,25 +106,6 @@ export class ApiService {
     );
   }
 
-  // /** DELETE: delete the hero from the server */
-  // deleteHero (hero: Hero | number): Observable<Hero> {
-  //   const id = typeof hero === 'number' ? hero : hero.id;
-  //   const url = `${this.heroesUrl}/${id}`;
-
-  //   return this.http.delete<Hero>(url, httpOptions).pipe(
-  //     tap(_ => this.log(`deleted hero id=${id}`)),
-  //     catchError(this.handleError<Hero>('deleteHero'))
-  //   );
-  // }
-
-  // /** PUT: update the hero on the server */
-  // updateHero (hero: Hero): Observable<any> {
-  //   return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
-  //     tap(_ => this.log(`updated hero id=${hero.id}`)),
-  //     catchError(this.handleError<any>('updateHero'))
-  //   );
-  // }
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -128,6 +121,10 @@ export class ApiService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  resetToken() {
+    this.authToken = {token: null, email: null};
   }
 
   getUrlPathForType(typeOfRequest: String): String {

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ReportIncidentComponent } from './report-incident/report-incident.component';
 import { SearchReportsComponent } from './search-reports/search-reports.component';
+
+import { Interceptor } from './_helpers/interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { SearchReportsComponent } from './search-reports/search-reports.componen
     HttpClientModule,
     AngularFontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
