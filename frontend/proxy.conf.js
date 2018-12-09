@@ -3,6 +3,7 @@ const PROXY_CONFIG = [
     {
         context: [
             "/users",
+            "/email_exists",
             "/requests",
             "/abandoned_vehicles_requests",
             "/garbage_carts_requests",
