@@ -24,13 +24,18 @@ $$
 LANGUAGE SQL;
 
 3.
-select zip_code, type_of_service_request from (
-SELECT request.zip_code, request.type_of_service_request, count(*) as c
+CREATE FUNCTION function3(currentDate date) RETURNS TABLE(f1 int, f2 text)
+AS $$ 
+SELECT foo.zip_code, (array_agg(foo.type_of_service_request))[1] FROM (
+SELECT request.zip_code, request.type_of_service_request, count(*) AS c
 FROM request
-WHERE request.creation_date = '2018-11-01' 
+WHERE request.creation_date = currentDate 
 GROUP BY zip_code, type_of_service_request
 ORDER BY zip_code, count(*) DESC
-) as foo
+) AS foo
+GROUP BY foo.zip_code
+$$
+LANGUAGE SQL;
 
 4.
 CREATE FUNCTION function4(fromDate date, toDate date) RETURNS TABLE(f1 text, f2 float)
