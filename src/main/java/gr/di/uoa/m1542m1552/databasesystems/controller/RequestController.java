@@ -27,6 +27,7 @@ import gr.di.uoa.m1542m1552.databasesystems.domain.SanitationCodeComplaintsReque
 import gr.di.uoa.m1542m1552.databasesystems.domain.TreeDebrisRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.TreeTrimsRequest;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.Status;
+import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 import gr.di.uoa.m1542m1552.databasesystems.service.AbandonedVehiclesRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.GarbageCartsRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.GraffitiRemovalRequestService;
@@ -94,8 +95,8 @@ class RequestController {
 
   @GetMapping("/search1/fromDate={fromDateStr}&toDate={toDateStr}")
   public Page getRequestsByStoredFunction1(@PageableDefault(value=10, page=0) Pageable pageable,
-                                                    @PathVariable String fromDateStr,
-                                                    @PathVariable String toDateStr) throws ServletException  {
+                                           @PathVariable String fromDateStr,
+                                           @PathVariable String toDateStr) throws ServletException  {
     Date fromDate, toDate;
     try {
       fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(fromDateStr);
@@ -112,10 +113,39 @@ class RequestController {
     return page;
   }
 
-  @GetMapping("/search4/")
-  public Object[] getRequestsByStoredFunctionTest() {
-    Object[] requests = requestService.getRequestsByStoredFunctionTest();
-    return requests;
+  @GetMapping("/search2/fromDate={fromDateStr}&toDate={toDateStr}&type={type}")
+  public Page getRequestsByStoredFunction2(@PageableDefault(value=10, page=0) Pageable pageable,
+                                           @PathVariable String fromDateStr,
+                                           @PathVariable String toDateStr,
+                                           @PathVariable TypeOfServiceRequest type) throws ServletException  {
+    Date fromDate, toDate;
+    try {
+      fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(fromDateStr);
+    } catch (ParseException e) {
+      return null;
+	  }  
+    try {
+      toDate = new SimpleDateFormat("yyyy-MM-dd").parse(toDateStr);
+    } catch (ParseException e) {
+      return null;
+    }
+
+    Page page = requestService.getRequestsByStoredFunction2(pageable, fromDate, toDate, type.getText());
+    return page;
+  }
+
+  @GetMapping("/search3/date={dateStr}")
+  public Page getRequestsByStoredFunction2(@PageableDefault(value=10, page=0) Pageable pageable,
+                                           @PathVariable String dateStr) throws ServletException  {
+    Date date;
+    try {
+      date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+    } catch (ParseException e) {
+      return null;
+	  }
+
+    Page page = requestService.getRequestsByStoredFunction3(pageable, date);
+    return page;
   }
 
   // Abandoned Vehicles 

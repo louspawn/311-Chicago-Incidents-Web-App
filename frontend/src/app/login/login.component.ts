@@ -18,10 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.user);
     this.apiService.login(this.user).subscribe(response => {
-      console.log(response);
-
       if (!response) {
         this.error = true;
       } else {

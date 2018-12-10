@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
+import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 import gr.di.uoa.m1542m1552.databasesystems.repository.RequestRepository;
 
 @Service
@@ -33,7 +34,6 @@ public class RequestService {
     }
 
     public Page<Request> getRequestsByZipCodeAndStreetAddress(Pageable pageable, Integer zipCode, String streetAddress){
-        // return requestRepository.searchByZIPCode(zipCode);
         return requestRepository.findByZipCodeAndStreetAddressContaining(pageable, zipCode, streetAddress);
     }
 
@@ -41,7 +41,11 @@ public class RequestService {
         return requestRepository.searchByStoredFunction1(fromDate, toDate, pageable);
     }
 
-	public Object[] getRequestsByStoredFunctionTest() {
-        return requestRepository.searchByStoredFunctionTest();
-	}
+    public Page getRequestsByStoredFunction2(Pageable pageable, Date fromDate, Date toDate, String type){
+        return requestRepository.searchByStoredFunction2(fromDate, toDate, type, pageable);
+    }
+
+    public Page getRequestsByStoredFunction3(Pageable pageable, Date date){
+        return requestRepository.searchByStoredFunction3(date, pageable);
+    }
 }

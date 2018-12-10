@@ -54,15 +54,26 @@ export class ApiService {
 
   /** GET: search total per type */
   findTotalPerDay (searchTerms): Observable<any[]> {
-    const url = this.apiUrl + 'search2/type=' +  (searchTerms.type ? searchTerms.type : '') +
-                              '&fromDate=' + (searchTerms.startDate ?
+    const url = this.apiUrl + 'search2/fromDate=' + (searchTerms.startDate ?
                                searchTerms.startDate.year + '-' + searchTerms.startDate.month + '-' + searchTerms.startDate.day : '') +
                               '&toDate=' + (searchTerms.endDate ?
                                 searchTerms.endDate.year + '-' + searchTerms.endDate.month + '-' + searchTerms.endDate.day : '') +
+                              '&type=' +  (searchTerms.type ? searchTerms.type : '') +
                               '?page=' + (searchTerms.page - 1);
     return this.http.get<any[]>(url).pipe(
         tap(_ => console.log('searched ' + url)),
         catchError(this.handleError('search2', []))
+      );
+  }
+
+  /** GET: search most common types per zipcode */
+  findMostCommonType (searchTerms): Observable<any[]> {
+    const url = this.apiUrl + 'search3/date=' + (searchTerms.date ?
+                                searchTerms.date.year + '-' + searchTerms.date.month + '-' + searchTerms.date.day : '') +
+                              '?page=' + (searchTerms.page - 1);
+    return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search3', []))
       );
   }
 

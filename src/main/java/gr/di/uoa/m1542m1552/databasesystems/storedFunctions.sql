@@ -29,7 +29,7 @@ AS $$
 SELECT foo.zip_code, (array_agg(foo.type_of_service_request))[1] FROM (
 SELECT request.zip_code, request.type_of_service_request, count(*) AS c
 FROM request
-WHERE request.creation_date = currentDate 
+WHERE DATE(request.creation_date) = DATE(currentDate)
 GROUP BY zip_code, type_of_service_request
 ORDER BY zip_code, count(*) DESC
 ) AS foo
@@ -52,7 +52,7 @@ CREATE FUNCTION function5(currentDate date, minLat float, maxLat float, minLong 
 AS $$ 
 SELECT type_of_service_request
 FROM request
-WHERE latitude >= minLat AND latitude <= maxLat AND longitude >= minLong AND longitude <= maxLong AND DATE(creation_date) = currentDate
+WHERE latitude >= minLat AND latitude <= maxLat AND longitude >= minLong AND longitude <= maxLong AND DATE(creation_date) = DATE(currentDate)
 GROUP BY type_of_service_request
 ORDER BY count(*) DESC
 LIMIT 1

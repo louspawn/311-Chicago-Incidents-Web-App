@@ -29,7 +29,11 @@ export class SearchReportsComponent implements OnInit {
     startDate: null,
     endDate: null
   };
-  mostCommonForm = {page: 1, totalElements: 0};
+  mostCommonForm = {
+    page: 1,
+    totalElements: 0,
+    date: null
+  };
 
   searchResults = [];
   totalPerTypeResults = [];
@@ -81,7 +85,12 @@ export class SearchReportsComponent implements OnInit {
   }
 
   findMostCommonType() {
-    console.log(this.mostCommonForm);
+    this.apiService.findMostCommonType(this.mostCommonForm).subscribe( results => {
+      if (results) {
+        this.mostCommonResults = (<any> results).content;
+        this.mostCommonForm.totalElements = (<any> results).totalElements;
+      }
+    });
   }
 
 }
