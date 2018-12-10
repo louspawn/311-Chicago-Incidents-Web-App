@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormData } from '../_classes/form-data';
+import { ApiService } from '../_services/api.service';
 
 @Component({
   selector: 'app-search-reports',
@@ -10,14 +11,34 @@ import { FormData } from '../_classes/form-data';
 export class SearchReportsComponent implements OnInit {
   reportTypes = FormData.reportTypes;
 
-  searchForm = {};
-  totalPerTypeForm = {};
-  totalPerDayForm = {};
-  mostCommonForm = {};
+  searchForm = {
+    streetAddress: null,
+    zipCode: null,
+    page: 1,
+    totalElements: 0
+  };
+  totalPerTypeForm = {
+    page: 1,
+    totalElements: 0,
+    startDate: null,
+    endDate: null
+  };
+  totalPerDayForm = {
+    page: 1,
+    totalElements: 0,
+    startDate: null,
+    endDate: null
+  };
+  mostCommonForm = {page: 1, totalElements: 0};
+
+  searchResults = [];
+  totalPerTypeResults = [];
+  totalPerDayResults = [];
+  mostCommonResults = [];
 
   dateNow;
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     const dateObj = new Date();
@@ -33,15 +54,30 @@ export class SearchReportsComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchForm);
+    this.apiService.search(this.searchForm).subscribe( results => {
+      if (results) {
+        this.searchResults = (<any> results).content;
+        this.searchForm.totalElements = (<any> results).totalElements;
+      }
+    });
   }
 
   findTotalPerType() {
-    console.log(this.totalPerTypeForm);
+    this.apiService.findTotalPerType(this.totalPerTypeForm).subscribe( results => {
+      if (results) {
+        this.totalPerTypeResults = (<any> results).content;
+        this.totalPerTypeForm.totalElements = (<any> results).totalElements;
+      }
+    });
   }
 
   findTotalPerDay() {
-    console.log(this.totalPerDayForm);
+    this.apiService.findTotalPerDay(this.totalPerDayForm).subscribe( results => {
+      if (results) {
+        this.totalPerDayResults = (<any> results).content;
+        this.totalPerDayForm.totalElements = (<any> results).totalElements;
+      }
+    });
   }
 
   findMostCommonType() {

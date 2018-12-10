@@ -3,6 +3,8 @@ package gr.di.uoa.m1542m1552.databasesystems.service;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
@@ -30,13 +32,13 @@ public class RequestService {
         return requestRepository.searchByStreetAddress(streetAddress);
     }
 
-    public Iterable<Request> getRequestsByZipCodeOrStreetAddress(Integer zipCode, String streetAddress){
+    public Page<Request> getRequestsByZipCodeAndStreetAddress(Pageable pageable, Integer zipCode, String streetAddress){
         // return requestRepository.searchByZIPCode(zipCode);
-        return requestRepository.findByZipCodeOrStreetAddressContaining(zipCode, streetAddress);
+        return requestRepository.findByZipCodeAndStreetAddressContaining(pageable, zipCode, streetAddress);
     }
 
-    public Object[] getRequestsByStoredFunction1(Date fromDate, Date toDate){
-        return requestRepository.searchByStoredFunction1(fromDate, toDate);
+    public Page getRequestsByStoredFunction1(Pageable pageable, Date fromDate, Date toDate){
+        return requestRepository.searchByStoredFunction1(fromDate, toDate, pageable);
     }
 
 	public Object[] getRequestsByStoredFunctionTest() {

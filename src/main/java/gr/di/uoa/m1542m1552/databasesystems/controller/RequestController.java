@@ -5,7 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.ServletException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,26 +81,21 @@ class RequestController {
   @GetMapping("/requests")
   public Iterable<Request> getRequests() {
     Iterable<Request> requests = requestService.getRequests();
-    // Page<Request> requests = requestService.getRequests();
-    return requests;
-  }
-
-  @GetMapping("/search2/{streetAddress}")
-  public Iterable<Request> getRequestsByStreetAddress(@PathVariable String streetAddress) {
-    Iterable<Request> requests = requestService.getRequestsByStreetAddress(streetAddress);
     return requests;
   }
 
   @GetMapping("/search/zipCode={zipCode}&streetAddress={streetAddress}")
-  public Iterable<Request> getRequestsByZIPCode(@PathVariable Integer zipCode, 
-                                                @PathVariable String streetAddress) {
-    Iterable<Request> requests = requestService.getRequestsByZipCodeOrStreetAddress(zipCode, streetAddress.toUpperCase());
-    return requests;
+  public Page<Request> getRequestsByZIPCode(@PageableDefault(value=10, page=0) Pageable pageable,
+                                            @PathVariable Integer zipCode,
+                                            @PathVariable String streetAddress) throws ServletException {
+      Page<Request> page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());
+      return page;
   }
 
-  @GetMapping("/search3/fromDate={fromDateStr}&toDate={toDateStr}")
-  public Object[] getRequestsByStoredFunction1(@PathVariable String fromDateStr,
-                                                        @PathVariable String toDateStr) {
+  @GetMapping("/search1/fromDate={fromDateStr}&toDate={toDateStr}")
+  public Page getRequestsByStoredFunction1(@PageableDefault(value=10, page=0) Pageable pageable,
+                                                    @PathVariable String fromDateStr,
+                                                    @PathVariable String toDateStr) throws ServletException  {
     Date fromDate, toDate;
     try {
       fromDate = new SimpleDateFormat("yyyy-MM-dd").parse(fromDateStr);
@@ -108,8 +108,8 @@ class RequestController {
       return null;
     }
 
-    Object[] requests = requestService.getRequestsByStoredFunction1(fromDate, toDate);
-    return requests;
+    Page page = requestService.getRequestsByStoredFunction1(pageable, fromDate, toDate);
+    return page;
   }
 
   @GetMapping("/search4/")

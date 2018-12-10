@@ -28,52 +28,45 @@ export class ApiService {
       );
   }
 
-  /** GET heroes from the server */
+  /** GET: search with zipcode and address */
+  search (searchTerms): Observable<any[]> {
+    const url = this.apiUrl + 'search/zipCode=' + (searchTerms.zipCode ? searchTerms.zipCode : '') +
+                              '&streetAddress=' + (searchTerms.streetAddress ? searchTerms.streetAddress : '') +
+                              '?page=' + (searchTerms.page - 1);
+    return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search', []))
+      );
+  }
 
-  // /** GET heroes from the server */
-  // getHeroes (): Observable<Hero[]> {
-  //   return this.http.get<Hero[]>(this.heroesUrl)
-  //     .pipe(
-  //       tap(_ => this.log('fetched heroes')),
-  //       catchError(this.handleError('getHeroes', []))
-  //     );
-  // }
+  /** GET: search total per type */
+  findTotalPerType (searchTerms): Observable<any[]> {
+    const url = this.apiUrl + 'search1/fromDate=' + (searchTerms.startDate ?
+                               searchTerms.startDate.year + '-' + searchTerms.startDate.month + '-' + searchTerms.startDate.day : '') +
+                              '&toDate=' + (searchTerms.endDate ?
+                                searchTerms.endDate.year + '-' + searchTerms.endDate.month + '-' + searchTerms.endDate.day : '') +
+                              '?page=' + (searchTerms.page - 1);
+    return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search1', []))
+      );
+  }
 
-  // /** GET hero by id. Return `undefined` when id not found */
-  // getHeroNo404<Data>(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/?id=${id}`;
-  //   return this.http.get<Hero[]>(url)
-  //     .pipe(
-  //       map(heroes => heroes[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? `fetched` : `did not find`;
-  //         this.log(`${outcome} hero id=${id}`);
-  //       }),
-  //       catchError(this.handleError<Hero>(`getHero id=${id}`))
-  //     );
-  // }
+  /** GET: search total per type */
+  findTotalPerDay (searchTerms): Observable<any[]> {
+    const url = this.apiUrl + 'search2/type=' +  (searchTerms.type ? searchTerms.type : '') +
+                              '&fromDate=' + (searchTerms.startDate ?
+                               searchTerms.startDate.year + '-' + searchTerms.startDate.month + '-' + searchTerms.startDate.day : '') +
+                              '&toDate=' + (searchTerms.endDate ?
+                                searchTerms.endDate.year + '-' + searchTerms.endDate.month + '-' + searchTerms.endDate.day : '') +
+                              '?page=' + (searchTerms.page - 1);
+    return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search2', []))
+      );
+  }
 
-  // /** GET hero by id. Will 404 if id not found */
-  // getHero(id: number): Observable<Hero> {
-  //   const url = `${this.heroesUrl}/${id}`;
-  //   return this.http.get<Hero>(url).pipe(
-  //     tap(_ => this.log(`fetched hero id=${id}`)),
-  //     catchError(this.handleError<Hero>(`getHero id=${id}`))
-  //   );
-  // }
-
-  // /* GET heroes whose name contains search term */
-  // searchHeroes(term: string): Observable<Hero[]> {
-  //   if (!term.trim()) {
-  //     // if not search term, return empty hero array.
-  //     return of([]);
-  //   }
-  //   return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
-  //     tap(_ => this.log(`found heroes matching "${term}"`)),
-  //     catchError(this.handleError<Hero[]>('searchHeroes', []))
-  //   );
-  // }
-
+  /** POST: attemp to login */
   login(user): Observable<any> {
     const url = this.apiUrl + 'users/login';
     const credentials = {email: user.email, password: user.password};
