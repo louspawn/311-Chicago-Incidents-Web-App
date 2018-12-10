@@ -1,30 +1,29 @@
-Enumarations - type, status, graffiti location etc
---change Status Open - Dup to Open_Dup and Completed to Completed_Dup
-
-short int the street number
+Street Number and Street Table
 
 Obsolete information should be automatically staged to table(s) that maintain it for the time to come.
 
-Street Number and Street Table
+History for user queries
 
-String Sequence for request number
-
-Delete autofill from the form
-
-Make Not-null some table fields
+Put 3 more tables in the db
 
 Indices 
 
-History for user queries
-
-Search
+Materialized view with triggers
 
 Connection Pool
 
 SSL
 
-Put 3 more tables in the db
+Enumarations - type, status, graffiti location etc
+--change Status Open - Dup to Open_Dup and Completed to Completed_Dup
 
-Check zipCode != null and call the corresponding functions
+short int the street number
 
-Materialized view with triggers
+String Sequence for request number
+
+
+/////END//////
+
+Delete autofill from the form
+
+Make Not-null some table fields
