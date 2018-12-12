@@ -1,11 +1,12 @@
-// import java.io.Serializable;
-// import java.util.Properties;
+
+// package gr.di.uoa.m1542m1552.databasesystems.utils;
 
 // import org.hibernate.MappingException;
 // import org.hibernate.Session;
 // import org.hibernate.dialect.Dialect;
 // import org.hibernate.engine.config.spi.ConfigurationService;
 // import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+// import org.hibernate.engine.spi.SessionImplementor;
 // import org.hibernate.id.Configurable;
 // import org.hibernate.id.IdentifierGenerator;
 // import org.hibernate.id.enhanced.SequenceStyleGenerator;
@@ -13,8 +14,11 @@
 // import org.hibernate.service.ServiceRegistry;
 // import org.hibernate.type.Type;
 
+// import java.io.Serializable;
+// import java.util.Properties;
+
 // /**
-//  * @author Vlad Mihalcea
+//  * https://github.com/vladmihalcea/high-performance-java-persistence/blob/master/core/src/test/java/com/vladmihalcea/book/hpjp/hibernate/identifier/StringSequenceIdentifier.java
 //  */
 // public class StringSequenceIdentifier implements IdentifierGenerator, Configurable {
 
@@ -62,7 +66,7 @@
 //     }
 
 //     @Override
-//     public Serializable generate(SharedSessionContractImplementor session, Object obj) {
+//     public Serializable generate(SessionImplementor session, Object obj) {
 //         if (obj instanceof Identifiable) {
 //             Identifiable identifiable = (Identifiable) obj;
 //             Serializable id = identifiable.getId();

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,8 @@ import gr.di.uoa.m1542m1552.databasesystems.domain.RodentBaitingRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.SanitationCodeComplaintsRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.TreeDebrisRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.TreeTrimsRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.User;
+import gr.di.uoa.m1542m1552.databasesystems.domain.UserHistory;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.Status;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 import gr.di.uoa.m1542m1552.databasesystems.service.AbandonedVehiclesRequestService;
@@ -37,6 +40,7 @@ import gr.di.uoa.m1542m1552.databasesystems.service.RodentBaitingRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.SanitationCodeComplaintsRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.TreeDebrisRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.TreeTrimsRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.UserHistoryService;
 
 @RestController
 class RequestController {
@@ -59,11 +63,22 @@ class RequestController {
   TreeDebrisRequestService treeDebrisRequestService;
   @Autowired
   TreeTrimsRequestService treeTrimsRequestService;
+  @Autowired
+  UserHistoryService userHistoryService;
 
   private void setDefaultValues(Request newRequest) {
     newRequest.setServiceRequestNumber(newRequest.getTypeOfServiceRequest() + "-" + new Timestamp(System.currentTimeMillis()));
     newRequest.setLocation("{'latitude':'" + newRequest.getLatitude() + "','longitude':'" + newRequest.getLongitude() + "'}");
     newRequest.setStatus(Status.Open.getText());
+  }
+
+  private void recordQuery(String query) {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    UserHistory userHistory = new UserHistory();
+    userHistory.setUserId(user.getUsername());
+    userHistory.setTimeStamp(new Date());
+    userHistory.setQuery(query);
+    userHistoryService.createUserHistory(userHistory);
   }
 
   //Requests
@@ -86,9 +101,10 @@ class RequestController {
   }
 
   @GetMapping("/search/zipCode={zipCode}&streetAddress={streetAddress}")
-  public Page<Request> getRequestsByZIPCode(@PageableDefault(value=10, page=0) Pageable pageable,
+  public Page<Request> getRequestsByZipCodeAndStreetAddress(@PageableDefault(value=10, page=0) Pageable pageable,
                                             @PathVariable Integer zipCode,
                                             @PathVariable String streetAddress) throws ServletException {
+      recordQuery("searched: {zipCode: " + zipCode + ", address: " + streetAddress + "}");
       Page<Request> page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());
       return page;
   }
@@ -109,6 +125,7 @@ class RequestController {
       return null;
     }
 
+    recordQuery("stored function 1: {fromDate: " + fromDate + ", toDate: " + toDate + "}");
     Page page = requestService.getRequestsByStoredFunction1(pageable, fromDate, toDate);
     return page;
   }
@@ -130,6 +147,7 @@ class RequestController {
       return null;
     }
 
+    recordQuery("stored function 2: {fromDate: " + fromDate + ", toDate: " + toDate + ", type: " + type + "}");
     Page page = requestService.getRequestsByStoredFunction2(pageable, fromDate, toDate, type.getText());
     return page;
   }
@@ -144,6 +162,7 @@ class RequestController {
       return null;
 	  }
 
+    recordQuery("stored function 3: {date: " + date + "}");
     Page page = requestService.getRequestsByStoredFunction3(pageable, date);
     return page;
   }

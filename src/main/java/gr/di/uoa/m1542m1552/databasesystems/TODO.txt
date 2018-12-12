@@ -1,5 +1,3 @@
-Street Number and Street Table
-
 Obsolete information should be automatically staged to table(s) that maintain it for the time to come.
 
 History for user queries
