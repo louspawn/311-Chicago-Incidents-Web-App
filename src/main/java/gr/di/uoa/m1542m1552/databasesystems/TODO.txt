@@ -2,11 +2,9 @@ Obsolete information should be automatically staged to table(s) that maintain it
 
 //Materialized view with triggers
 
-Connection Pool
-
-SSL
-
 Backend validation - register, everything..
+
+Match case address. Search with ifs for zip code or address..
 
 Enumarations - type, status, graffiti location etc
 --change Status Open - Dup to Open_Dup and Completed to Completed_Dup
