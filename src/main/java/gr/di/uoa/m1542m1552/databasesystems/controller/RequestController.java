@@ -41,6 +41,7 @@ import gr.di.uoa.m1542m1552.databasesystems.service.SanitationCodeComplaintsRequ
 import gr.di.uoa.m1542m1552.databasesystems.service.TreeDebrisRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.TreeTrimsRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.UserHistoryService;
+import gr.di.uoa.m1542m1552.databasesystems.service.UserService;
 
 @RestController
 class RequestController {
@@ -64,6 +65,8 @@ class RequestController {
   @Autowired
   TreeTrimsRequestService treeTrimsRequestService;
   @Autowired
+  UserService userService;
+  @Autowired
   UserHistoryService userHistoryService;
 
   private void setDefaultValues(Request newRequest) {
@@ -75,7 +78,7 @@ class RequestController {
   private void recordQuery(String query) {
     User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     UserHistory userHistory = new UserHistory();
-    userHistory.setUserId(user.getUsername());
+    userHistory.setUserId(userService.findByEmail(user.getUsername()));
     userHistory.setTimeStamp(new Date());
     userHistory.setQuery(query);
     userHistoryService.createUserHistory(userHistory);

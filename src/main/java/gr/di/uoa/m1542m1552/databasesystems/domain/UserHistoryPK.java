@@ -5,12 +5,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserHistoryPK implements Serializable {
-    protected String userId;
+    protected Integer userId;
     protected Date timeStamp;
 
     public UserHistoryPK() {}
 
-    public UserHistoryPK(String userId, Date timeStamp) {
+    public UserHistoryPK(Integer userId, Date timeStamp) {
         this.userId = userId;
         this.timeStamp = timeStamp;
     }
