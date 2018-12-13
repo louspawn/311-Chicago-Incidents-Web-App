@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 import { ApiService } from '../_services/api.service';
 
@@ -11,7 +12,7 @@ export class RegisterComponent implements OnInit {
   user = {};
   emailExists = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
   }
@@ -19,14 +20,24 @@ export class RegisterComponent implements OnInit {
   register() {
     console.log(this.user);
     this.apiService.addUser(this.user).subscribe(response => {
-      console.log(response);
+      if (response) {
+        this.apiService.login(this.user).subscribe(authToken => {
+          if (!authToken) {
+            this.router.navigate(['login']);
+          } else {
+            this.apiService.authToken = authToken;
+            this.router.navigate(['home']);
+          }
+        });
+      } else {
+        this.emailExists = true;
+      }
     });
   }
 
   emailCheck(isInvalid) {
     if (!isInvalid) {
       this.apiService.emailExists((<any>this.user).email).subscribe(exists => {
-        console.log(exists);
         if (exists) {
           this.emailExists = true;
         } else {

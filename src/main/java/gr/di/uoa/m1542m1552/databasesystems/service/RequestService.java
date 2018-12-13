@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
-import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 import gr.di.uoa.m1542m1552.databasesystems.repository.RequestRepository;
 
 @Service
