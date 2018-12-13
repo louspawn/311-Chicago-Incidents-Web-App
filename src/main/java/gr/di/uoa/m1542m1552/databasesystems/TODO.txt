@@ -1,18 +1,12 @@
-Street Number and Street Table
-
 Obsolete information should be automatically staged to table(s) that maintain it for the time to come.
 
-History for user queries
-
-Put 3 more tables in the db
-
-Indices 
-
-Materialized view with triggers
+//Materialized view with triggers
 
 Connection Pool
 
 SSL
+
+Backend validation - register, everything..
 
 Enumarations - type, status, graffiti location etc
 --change Status Open - Dup to Open_Dup and Completed to Completed_Dup
@@ -21,9 +15,18 @@ short int the street number
 
 String Sequence for request number
 
+Email validation
+
+Obsolete table will have index on id
+
+Show empty results message
+
+Remove application.properties and private key
 
 /////END//////
 
 Delete autofill from the form
 
 Make Not-null some table fields
+
+Put 3 more tables in the db
