@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Subject} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 import { FormData } from '../_classes/form-data';
 import { ApiService } from '../_services/api.service';
@@ -9,6 +11,12 @@ import { ApiService } from '../_services/api.service';
   styleUrls: ['./report-incident.component.css']
 })
 export class ReportIncidentComponent implements OnInit {
+  private _success = new Subject<string>();
+  private _error = new Subject<string>();
+
+  successMessage: string;
+  errorMessage: string;
+
   // TODO: Statically gets hard-coded data for the form, must change to dynamic from database
   reportTypes = FormData.reportTypes;
   vehicleModel = FormData.vehicleModel;
@@ -18,31 +26,41 @@ export class ReportIncidentComponent implements OnInit {
   sanitationCodeNature = FormData.sanitationCodeNature;
   treeLocation = FormData.treeLocation;
 
-  // request = {id: null};
   request = {
-    id: null,
-    creationDate: null,
-    serviceRequestNumber: null,
-    streetAddress: 'Address',
-    latitude: 35,
-    longitude: -90,
-    streetNumber: 15,
-    typeOfServiceRequest: 'ABANDONED_VEHICLE',
-    xcoordinate: 121212.32123,
-    ycoordinate: 12211212,
-    zipCode: 123213
+    id: null
   };
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this._success.subscribe((message) => this.successMessage = message);
+
+    this._success.pipe(
+      debounceTime(3000)
+    ).subscribe(() => this.successMessage = null);
+
+    this._error.subscribe((message) => this.errorMessage = message);
+    this._error.pipe(
+      debounceTime(3000)
+    ).subscribe(() => this.errorMessage = null);
   }
 
   sendRequest() {
-    console.log(this.request);
     this.apiService.addRequest(this.request).subscribe(response => {
-      console.log(response);
+      if (response) {
+        this.changeSuccessMessage();
+      } else {
+        this.changeErrorMessage();
+      }
     });
+  }
+
+  public changeSuccessMessage() {
+    this._success.next(`Success!`);
+  }
+
+  public changeErrorMessage() {
+    this._error.next(`Error!`);
   }
 
 }

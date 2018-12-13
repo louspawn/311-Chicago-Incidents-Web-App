@@ -17,10 +17,6 @@ Email validation
 
 Obsolete table will have index on id
 
-Show empty results message
-
-Remove application.properties and private key
-
 /////END//////
 
 Delete autofill from the form
@@ -28,3 +24,5 @@ Delete autofill from the form
 Make Not-null some table fields
 
 Put 3 more tables in the db
+
+Remove application.properties and private key

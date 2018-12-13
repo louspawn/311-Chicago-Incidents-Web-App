@@ -35,10 +35,10 @@ export class SearchReportsComponent implements OnInit {
     date: null
   };
 
-  searchResults = [];
-  totalPerTypeResults = [];
-  totalPerDayResults = [];
-  mostCommonResults = [];
+  searchResults;
+  totalPerTypeResults;
+  totalPerDayResults;
+  mostCommonResults;
 
   dateNow;
 

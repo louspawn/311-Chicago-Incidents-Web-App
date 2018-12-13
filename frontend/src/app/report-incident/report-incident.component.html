@@ -3,16 +3,17 @@
   <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
     <span>Report incident</span>
   </h6>
-  <form class="needs-validation p-3" novalidate>
+  <form class="p-3" name="form" (ngSubmit)="f.form.valid && sendRequest()" #f="ngForm" novalidate>
     <div class="mb-3">
       <label for="type">Type</label>
       <div class="input-group">
-        <select [(ngModel)]="request.typeOfServiceRequest" name="type" class="custom-select form-control" id="type" required>
+        <select [(ngModel)]="request.typeOfServiceRequest" name="type" class="custom-select form-control" id="type"
+                #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required>
             <option value="undefined" selected disabled>Select type</option>
             <option *ngFor="let type of reportTypes" [value]="type.value">{{ type.name }}</option>
         </select>
-        <div class="invalid-feedback" style="width: 100%;">
-          Type is required.
+        <div *ngIf="f.submitted && type.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="type.errors.required">Type is required.</div>
         </div>
       </div>
     </div>
@@ -20,16 +21,18 @@
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="latitude">Latitude</label>
-        <input [(ngModel)]="request.latitude" name="latitude" type="text" class="form-control" id="latitude" placeholder="35.460670" required>
-        <div class="invalid-feedback" style="width: 100%;">
-          Latitude is required.
+        <input [(ngModel)]="request.latitude" name="latitude" type="text" class="form-control" id="latitude" placeholder="35.460670"
+               #lat="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lat.invalid }" required>
+        <div *ngIf="f.submitted && lat.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="lat.errors.required">Latitude is required.</div>
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="longitude">Longitude</label>
-        <input [(ngModel)]="request.longitude" name="longitude" type="text" class="form-control" id="longitude" placeholder="-94.789211" required>
-        <div class="invalid-feedback" style="width: 100%;">
-          Longitude is required.
+        <input [(ngModel)]="request.longitude" name="longitude" type="text" class="form-control" id="longitude" placeholder="-94.789211"
+               #lon="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lon.invalid }" required>
+        <div *ngIf="f.submitted && lon.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="lon.errors.required">Longitude is required.</div>
         </div>
       </div>
     </div>
@@ -37,41 +40,46 @@
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="x-coordinate">X-Coordinate</label>
-        <input [(ngModel)]="request.xcoordinate" name="x-coordinate" type="text" class="form-control" id="x-coordinate" placeholder="1147716.70081754" required>
-        <div class="invalid-feedback" style="width: 100%;">
-          X-Coordinate is required.
+        <input [(ngModel)]="request.xcoordinate" name="x-coordinate" type="text" class="form-control" id="x-coordinate" placeholder="1147716.70081754"
+               #xc="ngModel" [ngClass]="{ 'is-invalid': f.submitted && xc.invalid }" required>
+        <div *ngIf="f.submitted && xc.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="xc.errors.required">X-Coordinate is required.</div>
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="y-coordinate">Y-Coordinate</label>
-        <input [(ngModel)]="request.ycoordinate" name="y-coordinate" type="text" class="form-control" id="y-coordinate" placeholder="1937054.16743335" required>
-        <div class="invalid-feedback" style="width: 100%;">
-          Y-Coordinate is required.
+        <input [(ngModel)]="request.ycoordinate" name="y-coordinate" type="text" class="form-control" id="y-coordinate" placeholder="1937054.16743335"
+               #yc="ngModel" [ngClass]="{ 'is-invalid': f.submitted && yc.invalid }" required>
+        <div *ngIf="f.submitted && yc.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="yc.errors.required">Y-Coordinate is required.</div>
         </div>
       </div>
     </div>
 
     <div class="mb-3">
       <label for="address">Address</label>
-      <input [(ngModel)]="request.streetAddress" name="address" type="text" class="form-control" id="address" placeholder="Something Main St" required>
-      <div class="invalid-feedback">
-        Please enter the address.
+      <input [(ngModel)]="request.streetAddress" name="address" type="text" class="form-control" id="address" placeholder="Something Main St"
+             #sa="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sa.invalid }" required>
+      <div *ngIf="f.submitted && sa.invalid" class="invalid-feedback">
+          <div *ngIf="sa.errors.required">Address is required.</div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6 mb-3">
         <label for="zip-code">Zip Code</label>
-        <input [(ngModel)]="request.zipCode" name="zip-code" type="text" class="form-control" id="zip-code" placeholder="99524" required>
-        <div class="invalid-feedback" style="width: 100%;">
-          Zip code is required.
+        <input [(ngModel)]="request.zipCode" name="zip-code" type="text" class="form-control" id="zip-code" placeholder="99524"
+               #zc="ngModel" [ngClass]="{ 'is-invalid': f.submitted && zc.invalid }" required>
+        <div *ngIf="f.submitted && zc.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="zc.errors.required">Zip code is required.</div>
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label for="number">Number</label>
-        <input [(ngModel)]="request.streetNumber" name="number" type="number" class="form-control" id="number" placeholder="16" required>
-        <div class="invalid-feedback" style="width: 100%;">
-          Number is required.
+        <input [(ngModel)]="request.streetNumber" name="number" type="number" class="form-control" id="number" placeholder="16"
+               #sn="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sn.invalid }" required>
+        <div *ngIf="f.submitted && sn.invalid" class="invalid-feedback" style="width: 100%;">
+            <div *ngIf="sn.errors.required">Number is required.</div>
         </div>
       </div>
     </div>
@@ -80,12 +88,13 @@
       <div class="mb-3">
         <label for="vehicle_model">Vehicle Model</label>
         <div class="input-group">
-          <select [(ngModel)]="request.vehicleModel" name="vehicle_model" class="custom-select form-control" id="vehicle_model" required>
+          <select [(ngModel)]="request.vehicleModel" name="vehicle_model" class="custom-select form-control" id="vehicle_model"
+                  #vm="ngModel" [ngClass]="{ 'is-invalid': f.submitted && vm.invalid }" required>
               <option value="undefined" selected disabled>Select vehicle model</option>
               <option *ngFor="let vehicle_model of vehicleModel" [value]="vehicle_model.value">{{ vehicle_model.name }}</option>
           </select>
-          <div class="invalid-feedback" style="width: 100%;">
-            Vehicle model is required.
+          <div *ngIf="f.submitted && vm.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="vm.errors.required">Vehicle model is required.</div>
           </div>
         </div>
       </div>
@@ -93,12 +102,13 @@
       <div class="mb-3">
         <label for="vehicle_color">Vehicle Color</label>
         <div class="input-group">
-          <select [(ngModel)]="request.vehicleColor" name="vehicle_color" class="custom-select form-control" id="vehicle_color" required>
+          <select [(ngModel)]="request.vehicleColor" name="vehicle_color" class="custom-select form-control" id="vehicle_color"
+                  #vc="ngModel" [ngClass]="{ 'is-invalid': f.submitted && vc.invalid }" required>
               <option value="undefined" selected disabled>Select vehicle color</option>
               <option *ngFor="let vehicle_color of vehicleColor" [value]="vehicle_color.value">{{ vehicle_color.name }}</option>
           </select>
-          <div class="invalid-feedback" style="width: 100%;">
-            Vehicle color is required.
+          <div *ngIf="f.submitted && vc.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="vc.errors.required">Vehicle color is required.</div>
           </div>
         </div>
       </div>
@@ -106,16 +116,18 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="licence_plate">Licence plate</label>
-          <input [(ngModel)]="request.licensePlate" name="licence_plate" type="text" class="form-control" id="licence_plate" placeholder="FFX580" required>
-          <div class="invalid-feedback" style="width: 100%;">
-            Licence plate is required.
+          <input [(ngModel)]="request.licensePlate" name="licence_plate" type="text" class="form-control" id="licence_plate" placeholder="FFX580"
+                 #lp="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lp.invalid }" required>
+          <div *ngIf="f.submitted && lp.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="lp.errors.required">Licence plate is required.</div>
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="days_abandoned">Days abandoned</label>
-          <input [(ngModel)]="request.daysReported" name="days_abandoned" type="number" class="form-control" id="days_abandoned" placeholder="5" required>
-          <div class="invalid-feedback" style="width: 100%;">
-            Days abandoned is required.
+          <input [(ngModel)]="request.daysReported" name="days_abandoned" type="number" class="form-control" id="days_abandoned" placeholder="5"
+                 #da="ngModel" [ngClass]="{ 'is-invalid': f.submitted && da.invalid }" required>
+          <div *ngIf="f.submitted && da.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="da.errors.required">Days abandoned is required.</div>
           </div>
         </div>
       </div>
@@ -125,12 +137,13 @@
       <div class="mb-3">
         <label for="graffiti_location">Graffiti Location</label>
         <div class="input-group">
-          <select [(ngModel)]="request.whereIsLocated" name="graffiti_location" class="custom-select form-control" id="graffiti_location" required>
+          <select [(ngModel)]="request.whereIsLocated" name="graffiti_location" class="custom-select form-control" id="graffiti_location"
+                  #gl="ngModel" [ngClass]="{ 'is-invalid': f.submitted && gl.invalid }" required>
               <option value="undefined" selected disabled>Select graffiti location</option>
               <option *ngFor="let graffiti_location of graffitiLocation" [value]="graffiti_location.value">{{ graffiti_location.name }}</option>
           </select>
-          <div class="invalid-feedback" style="width: 100%;">
-            Graffiti location is required.
+          <div *ngIf="f.submitted && gl.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="gl.errors.required">Graffiti location is required.</div>
           </div>
         </div>
       </div>
@@ -138,12 +151,13 @@
       <div class="mb-3">
         <label for="graffiti_surface">Graffiti Surface</label>
         <div class="input-group">
-          <select [(ngModel)]="request.typeOfSurfaceIsOn" name="graffiti_surface" class="custom-select form-control" id="graffiti_surface" required>
+          <select [(ngModel)]="request.typeOfSurfaceIsOn" name="graffiti_surface" class="custom-select form-control" id="graffiti_surface"
+                  #gs="ngModel" [ngClass]="{ 'is-invalid': f.submitted && gs.invalid }" required>
               <option value="undefined" selected disabled>Select graffiti surface</option>
               <option *ngFor="let graffiti_surface of graffitiSurface" [value]="graffiti_surface.value">{{ graffiti_surface.name }}</option>
           </select>
-          <div class="invalid-feedback" style="width: 100%;">
-            Graffiti surface is required.
+          <div *ngIf="f.submitted && gs.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="gs.errors.required">Graffiti surface is required.</div>
           </div>
         </div>
       </div>
@@ -153,12 +167,13 @@
       <div class="mb-3">
         <label for="sanitation_code_nature">Sanitation Code Nature</label>
         <div class="input-group">
-          <select [(ngModel)]="request.natureOfCodeViolation" name="sanitation_code_nature" class="custom-select form-control" id="sanitation_code_nature" required>
+          <select [(ngModel)]="request.natureOfCodeViolation" name="sanitation_code_nature" class="custom-select form-control" id="sanitation_code_nature"
+                  #scn="ngModel" [ngClass]="{ 'is-invalid': f.submitted && scn.invalid }" required>
               <option value="undefined" selected disabled>Select sanitation code nature</option>
               <option *ngFor="let sanitation_code_nature of sanitationCodeNature" [value]="sanitation_code_nature.value">{{ sanitation_code_nature.name }}</option>
           </select>
-          <div class="invalid-feedback" style="width: 100%;">
-            Sanitation code nature is required.
+          <div *ngIf="f.submitted && scn.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="scn.errors.required">Sanitation code nature is required.</div>
           </div>
         </div>
       </div>
@@ -168,18 +183,22 @@
       <div class="mb-3">
         <label for="tree_location">Tree location</label>
         <div class="input-group">
-          <select [(ngModel)]="request.whereIsLocated" name="tree_location" class="custom-select form-control" id="tree_location" required>
+          <select [(ngModel)]="request.whereIsLocated" name="tree_location" class="custom-select form-control" id="tree_location"
+                  #tl="ngModel" [ngClass]="{ 'is-invalid': f.submitted && tl.invalid }" required>
               <option value="undefined" selected disabled>Select tree location</option>
               <option *ngFor="let tree_location of treeLocation" [value]="tree_location.value">{{ tree_location.name }}</option>
           </select>
-          <div class="invalid-feedback" style="width: 100%;">
-            Tree location is required.
+          <div *ngIf="f.submitted && tl.invalid" class="invalid-feedback" style="width: 100%;">
+              <div *ngIf="tl.errors.required">Tree location is required.</div>
           </div>
         </div>
       </div>
     </div>
 
+    <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+    <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+
     <hr class="mb-4">
-    <button class="btn btn-primary btn-lg btn-block" (click)="sendRequest()">Send request</button>
+    <button class="btn btn-primary btn-lg btn-block">Send request</button>
   </form>
 </div>
