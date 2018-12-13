@@ -14,7 +14,7 @@ const PROXY_CONFIG = [
             "/tree_debris_requests",
             "/tree_trims_requests"
         ],
-        target: "http://localhost:8090",
+        target: "https://localhost:8090",
         secure: false
     }
 ]
