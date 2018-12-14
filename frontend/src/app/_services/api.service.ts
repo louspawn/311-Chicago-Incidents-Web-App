@@ -30,13 +30,44 @@ export class ApiService {
 
   /** GET: search with zipcode and address */
   search (searchTerms): Observable<any[]> {
-    const url = this.apiUrl + 'search/zipCode=' + (searchTerms.zipCode ? searchTerms.zipCode : '') +
-                              '&streetAddress=' + (searchTerms.streetAddress ? searchTerms.streetAddress : '') +
-                              '?page=' + (searchTerms.page - 1);
-    return this.http.get<any[]>(url).pipe(
+    let url;
+    if (searchTerms.zipCode && searchTerms.zipCode !== '' && searchTerms.streetAddress && searchTerms.streetAddress !== '') {
+      url = this.apiUrl + 'search/zipCode=' + searchTerms.zipCode + '&streetAddress=' + searchTerms.streetAddress +
+      '?page=' + (searchTerms.page - 1);
+
+      return this.http.get<any[]>(url).pipe(
         tap(_ => console.log('searched ' + url)),
         catchError(this.handleError('search', []))
       );
+    }
+
+    if ((!searchTerms.zipCode || searchTerms.zipCode === '') && (!searchTerms.streetAddress || searchTerms.streetAddress === '')) {
+      url = this.apiUrl + 'search/all?page=' + (searchTerms.page - 1);
+
+      return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search', []))
+      );
+    }
+
+    if (!searchTerms.zipCode || searchTerms.zipCode === '') {
+      url = this.apiUrl + 'search/streetAddress/' + searchTerms.streetAddress +
+      '?page=' + (searchTerms.page - 1);
+
+      return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search', []))
+      );
+    } else if (!searchTerms.streetAddress || searchTerms.streetAddress === '') {
+      url = this.apiUrl + 'search/zipCode/' + searchTerms.zipCode +
+      '?page=' + (searchTerms.page - 1);
+
+      return this.http.get<any[]>(url).pipe(
+        tap(_ => console.log('searched ' + url)),
+        catchError(this.handleError('search', []))
+      );
+    }
+
   }
 
   /** GET: search total per type */

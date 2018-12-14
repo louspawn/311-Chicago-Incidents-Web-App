@@ -1,10 +1,7 @@
+
 Obsolete information should be automatically staged to table(s) that maintain it for the time to come.
 
-//Materialized view with triggers
-
 Backend validation - register, everything..
-
-Match case address. Search with ifs for zip code or address..
 
 ////////////////
 

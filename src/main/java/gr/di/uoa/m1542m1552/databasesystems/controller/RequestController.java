@@ -70,6 +70,7 @@ class RequestController {
   UserHistoryService userHistoryService;
 
   private void setDefaultValues(Request newRequest) {
+    newRequest.setStreetAddress(newRequest.getStreetAddress().toUpperCase());
     newRequest.setServiceRequestNumber(newRequest.getTypeOfServiceRequest() + "-" + new Timestamp(System.currentTimeMillis()));
     newRequest.setLocation("{'latitude':'" + newRequest.getLatitude() + "','longitude':'" + newRequest.getLongitude() + "'}");
     newRequest.setStatus(Status.Open.getText());
@@ -103,26 +104,48 @@ class RequestController {
     return requests;
   }
 
+  @GetMapping("/search/all")
+  public Page getAllRequests(@PageableDefault(value=10, page=0) Pageable pageable) throws ServletException {
+    Page page;
+
+    recordQuery("get all requests");
+    page = requestService.getRequests(pageable);
+
+    return page;
+  }
+
   @GetMapping("/search/zipCode={zipCode}&streetAddress={streetAddress}")
   public Page getRequestsByZipCodeAndStreetAddress(@PageableDefault(value=10, page=0) Pageable pageable,
-                                            @PathVariable Integer zipCode,
-                                            @PathVariable String streetAddress) throws ServletException {
-      Page page;
-      if(zipCode != null && streetAddress != null && !streetAddress.equals("")) {
-        recordQuery("searched: {zipCode: " + zipCode + ", address: " + streetAddress + "}");
-        page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());
-      } else if(zipCode == null) {
-        recordQuery("searched: {address: " + streetAddress + "}");
-        page = requestService.getRequestsByStreetAddress(pageable, streetAddress.toUpperCase());
-      } else if(streetAddress == null || streetAddress.equals("")){
-        recordQuery("searched: {zipCode: " + zipCode + "}");
-        page = requestService.getRequestsByZipCode(pageable, zipCode);
-      } else {
-        recordQuery("get all requests");
-        page = requestService.getRequests(pageable);
-      }
+                                                   @PathVariable Integer zipCode,
+                                                   @PathVariable String streetAddress) throws ServletException {
+    Page page;
+    
+    recordQuery("searched: {zipCode: " + zipCode + ", address: " + streetAddress + "}");
+    page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());
 
-      return page;
+    return page;
+  }
+
+  @GetMapping("/search/streetAddress/{streetAddress}")
+  public Page getRequestsByStreetAddress(@PageableDefault(value=10, page=0) Pageable pageable,
+                                         @PathVariable String streetAddress) throws ServletException {
+    Page page;
+
+    recordQuery("searched: {address: " + streetAddress + "}");
+    page = requestService.getRequestsByStreetAddress(pageable, streetAddress.toUpperCase());
+
+    return page;
+  }
+
+  @GetMapping("/search/zipCode/{zipCode}")
+  public Page getRequestsByZipCode(@PageableDefault(value=10, page=0) Pageable pageable,
+                                            @PathVariable Integer zipCode) throws ServletException {
+    Page page;
+
+    recordQuery("searched: {zipCode: " + zipCode + "}");
+    page = requestService.getRequestsByZipCode(pageable, zipCode);
+
+    return page;
   }
 
   @GetMapping("/search1/fromDate={fromDateStr}&toDate={toDateStr}")

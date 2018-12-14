@@ -36,7 +36,7 @@ public class RequestService {
         return requestRepository.findByStreetAddressStartingWith(pageable, streetAddress);
     }
 
-    public Page getRequestsByZipCode(Pageable pageable,  Integer zipCode){
+    public Page getRequestsByZipCode(Pageable pageable, Integer zipCode){
         return requestRepository.findByZipCode(pageable, zipCode);
     }
 
