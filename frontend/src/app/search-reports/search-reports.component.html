@@ -29,8 +29,8 @@
       </div>
       </form>
 
-      <h2>Results</h2>
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="searchResults">
+        <h2>Results</h2>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -58,7 +58,8 @@
           </tbody>
         </table>
       </div>
-      <ngb-pagination *ngIf="searchResults.length > 0" [collectionSize]="searchForm.totalElements" [(page)]="searchForm.page" [maxSize]="5"
+      <div *ngIf="searchResults && searchResults.length === 0">No results for this search.</div>
+      <ngb-pagination *ngIf="searchResults && searchResults.length > 0" [collectionSize]="searchForm.totalElements" [(page)]="searchForm.page" [maxSize]="5"
                       [pageSize]="10" [boundaryLinks]="true" (pageChange)="search()" class="d-flex justify-content-center"></ngb-pagination>
     </ng-template>
   </ngb-tab>
@@ -109,8 +110,8 @@
       </div>
       </form>
 
-      <h2>Results</h2>
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="totalPerTypeResults">
+        <h2>Results</h2>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -127,8 +128,10 @@
         </table>
       </div>
 
-      <ngb-pagination *ngIf="totalPerTypeResults.length > 0" [collectionSize]="totalPerTypeForm.totalElements" [(page)]="totalPerTypeForm.page" [maxSize]="5"
-          [pageSize]="10" [boundaryLinks]="true" (pageChange)="findTotalPerType()" class="d-flex justify-content-center"></ngb-pagination>
+      <div *ngIf="totalPerTypeResults && totalPerTypeResults.length === 0">No results for this search.</div>
+      <ngb-pagination *ngIf="totalPerTypeResults && totalPerTypeResults.length > 0" [collectionSize]="totalPerTypeForm.totalElements"
+                      [(page)]="totalPerTypeForm.page" [maxSize]="5"
+                      [pageSize]="10" [boundaryLinks]="true" (pageChange)="findTotalPerType()" class="d-flex justify-content-center"></ngb-pagination>
     </ng-template>
   </ngb-tab>
 
@@ -190,8 +193,8 @@
       </div>
       </form>
 
-      <h2>Results</h2>
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="totalPerDayResults">
+        <h2>Results</h2>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -206,6 +209,11 @@
             </tr>
           </tbody>
         </table>
+
+        <div *ngIf="totalPerDayResults && totalPerDayResults.length === 0">No results for this search.</div>
+        <ngb-pagination *ngIf="totalPerDayResults && totalPerDayResults.length > 0" [collectionSize]="totalPerDayForm.totalElements"
+                        [(page)]="totalPerDayForm.page" [maxSize]="5"
+                        [pageSize]="10" [boundaryLinks]="true" (pageChange)="findTotalPerDay()" class="d-flex justify-content-center"></ngb-pagination>
       </div>
     </ng-template>
   </ngb-tab>
@@ -235,8 +243,8 @@
       </div>
       </form>
 
-      <h2>Results</h2>
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="mostCommonResults">
+        <h2>Results</h2>
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -251,6 +259,11 @@
             </tr>
           </tbody>
         </table>
+
+        <div *ngIf="mostCommonResults && mostCommonResults.length === 0">No results for this search.</div>
+        <ngb-pagination *ngIf="mostCommonResults && mostCommonResults.length > 0" [collectionSize]="mostCommonForm.totalElements"
+                        [(page)]="mostCommonForm.page" [maxSize]="5"
+                        [pageSize]="10" [boundaryLinks]="true" (pageChange)="findMostCommonType()" class="d-flex justify-content-center"></ngb-pagination>
       </div>
     </ng-template>
   </ngb-tab>
