@@ -104,10 +104,10 @@ class RequestController {
   }
 
   @GetMapping("/search/zipCode={zipCode}&streetAddress={streetAddress}")
-  public Page<Request> getRequestsByZipCodeAndStreetAddress(@PageableDefault(value=10, page=0) Pageable pageable,
+  public Page getRequestsByZipCodeAndStreetAddress(@PageableDefault(value=10, page=0) Pageable pageable,
                                             @PathVariable Integer zipCode,
                                             @PathVariable String streetAddress) throws ServletException {
-      Page<Request> page;
+      Page page;
       if(zipCode != null && streetAddress != null && !streetAddress.equals("")) {
         recordQuery("searched: {zipCode: " + zipCode + ", address: " + streetAddress + "}");
         page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());

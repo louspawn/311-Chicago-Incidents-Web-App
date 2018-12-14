@@ -28,19 +28,19 @@ public class RequestService {
       return requestRepository.findOne(requestId);
     }
 
-    public Page<Request> getRequests(Pageable pageable){
+    public Page getRequests(Pageable pageable){
         return requestRepository.findAll(pageable);
     }
 
-    public Page<Request> getRequestsByStreetAddress(Pageable pageable, String streetAddress){
+    public Page getRequestsByStreetAddress(Pageable pageable, String streetAddress){
         return requestRepository.findByStreetAddressStartingWith(pageable, streetAddress);
     }
 
-    public Page<Request> getRequestsByZipCode(Pageable pageable,  Integer zipCode){
-        return requestRepository.findByZipCodeStartingWith(pageable, zipCode);
+    public Page getRequestsByZipCode(Pageable pageable,  Integer zipCode){
+        return requestRepository.findByZipCode(pageable, zipCode);
     }
 
-    public Page<Request> getRequestsByZipCodeAndStreetAddress(Pageable pageable, Integer zipCode, String streetAddress){
+    public Page getRequestsByZipCodeAndStreetAddress(Pageable pageable, Integer zipCode, String streetAddress){
         return requestRepository.findByZipCodeAndStreetAddressStartingWith(pageable, zipCode, streetAddress);
     }
 

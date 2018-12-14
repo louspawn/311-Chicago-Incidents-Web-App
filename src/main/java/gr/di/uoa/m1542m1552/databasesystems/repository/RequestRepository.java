@@ -12,13 +12,13 @@ import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
 
 @Repository
 public interface RequestRepository extends CrudRepository<Request, Integer> {
-    public Page<Request> findAll(Pageable pageable);
+    public Page findAll(Pageable pageable);
 
-    public Page<Request> findByStreetAddressStartingWith(Pageable pageable, String street_address);
+    public Page findByStreetAddressStartingWith(Pageable pageable, String street_address);
 
-    public Page<Request> findByZipCodeStartingWith(Pageable pageable, Integer zip_code);
+    public Page findByZipCode(Pageable pageable, Integer zip_code);
 
-    public Page<Request> findByZipCodeAndStreetAddressStartingWith(Pageable pageable, Integer zip_code, String street_address);
+    public Page findByZipCodeAndStreetAddressStartingWith(Pageable pageable, Integer zip_code, String street_address);
 
     @Query(value = "SELECT res.f1, res.f2 FROM function1(?1, ?2) AS res ORDER BY res.f2 DESC \n-- #pageable\n",
            countQuery = "SELECT count(*) FROM function1(?1, ?2)", nativeQuery = true)
