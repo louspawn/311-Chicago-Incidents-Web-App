@@ -28,12 +28,20 @@ public class RequestService {
       return requestRepository.findOne(requestId);
     }
 
-    public Iterable<Request> getRequestsByStreetAddress(String streetAddress){
-        return requestRepository.searchByStreetAddress(streetAddress);
+    public Page<Request> getRequests(Pageable pageable){
+        return requestRepository.findAll(pageable);
+    }
+
+    public Page<Request> getRequestsByStreetAddress(Pageable pageable, String streetAddress){
+        return requestRepository.findByStreetAddressStartingWith(pageable, streetAddress);
+    }
+
+    public Page<Request> getRequestsByZipCode(Pageable pageable,  Integer zipCode){
+        return requestRepository.findByZipCodeStartingWith(pageable, zipCode);
     }
 
     public Page<Request> getRequestsByZipCodeAndStreetAddress(Pageable pageable, Integer zipCode, String streetAddress){
-        return requestRepository.findByZipCodeAndStreetAddressContaining(pageable, zipCode, streetAddress);
+        return requestRepository.findByZipCodeAndStreetAddressStartingWith(pageable, zipCode, streetAddress);
     }
 
     public Page getRequestsByStoredFunction1(Pageable pageable, Date fromDate, Date toDate){

@@ -107,8 +107,21 @@ class RequestController {
   public Page<Request> getRequestsByZipCodeAndStreetAddress(@PageableDefault(value=10, page=0) Pageable pageable,
                                             @PathVariable Integer zipCode,
                                             @PathVariable String streetAddress) throws ServletException {
-      recordQuery("searched: {zipCode: " + zipCode + ", address: " + streetAddress + "}");
-      Page<Request> page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());
+      Page<Request> page;
+      if(zipCode != null && streetAddress != null && !streetAddress.equals("")) {
+        recordQuery("searched: {zipCode: " + zipCode + ", address: " + streetAddress + "}");
+        page = requestService.getRequestsByZipCodeAndStreetAddress(pageable, zipCode, streetAddress.toUpperCase());
+      } else if(zipCode == null) {
+        recordQuery("searched: {address: " + streetAddress + "}");
+        page = requestService.getRequestsByStreetAddress(pageable, streetAddress.toUpperCase());
+      } else if(streetAddress == null || streetAddress.equals("")){
+        recordQuery("searched: {zipCode: " + zipCode + "}");
+        page = requestService.getRequestsByZipCode(pageable, zipCode);
+      } else {
+        recordQuery("get all requests");
+        page = requestService.getRequests(pageable);
+      }
+
       return page;
   }
 

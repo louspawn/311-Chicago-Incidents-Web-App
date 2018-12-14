@@ -6,19 +6,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
-import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 
 @Repository
 public interface RequestRepository extends CrudRepository<Request, Integer> {
+    public Page<Request> findAll(Pageable pageable);
 
-    @Query(value = "SELECT * FROM Request r WHERE r.street_address ILIKE :street_address", nativeQuery = true)
-    public Iterable<Request> searchByStreetAddress(@Param("street_address") String street_address);
+    public Page<Request> findByStreetAddressStartingWith(Pageable pageable, String street_address);
 
-    public Page<Request> findByZipCodeAndStreetAddressContaining(Pageable pageable, Integer zip_code, String street_address);
+    public Page<Request> findByZipCodeStartingWith(Pageable pageable, Integer zip_code);
+
+    public Page<Request> findByZipCodeAndStreetAddressStartingWith(Pageable pageable, Integer zip_code, String street_address);
 
     @Query(value = "SELECT res.f1, res.f2 FROM function1(?1, ?2) AS res ORDER BY res.f2 DESC \n-- #pageable\n",
            countQuery = "SELECT count(*) FROM function1(?1, ?2)", nativeQuery = true)
