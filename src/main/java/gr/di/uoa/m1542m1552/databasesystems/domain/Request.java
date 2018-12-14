@@ -1,5 +1,6 @@
 package gr.di.uoa.m1542m1552.databasesystems.domain;
 
+import gr.di.uoa.m1542m1552.databasesystems.domain.revision.RequestRevision;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.*;
 
 import java.util.Collection;

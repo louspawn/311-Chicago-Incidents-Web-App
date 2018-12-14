@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import gr.di.uoa.m1542m1552.databasesystems.domain.AbandonedVehiclesRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.AllLightsOutRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.AlleyLightsOutRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.GarbageCartsRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.GraffitiRemovalRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.PotHolesRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
 import gr.di.uoa.m1542m1552.databasesystems.domain.RodentBaitingRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.SanitationCodeComplaintsRequest;
+import gr.di.uoa.m1542m1552.databasesystems.domain.StreetLightOutRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.TreeDebrisRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.TreeTrimsRequest;
 import gr.di.uoa.m1542m1552.databasesystems.domain.User;
@@ -32,12 +35,15 @@ import gr.di.uoa.m1542m1552.databasesystems.domain.UserHistory;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.Status;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 import gr.di.uoa.m1542m1552.databasesystems.service.AbandonedVehiclesRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.AllLightsOutRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.AlleyLightsOutRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.GarbageCartsRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.GraffitiRemovalRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.PotHolesRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.RequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.RodentBaitingRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.SanitationCodeComplaintsRequestService;
+import gr.di.uoa.m1542m1552.databasesystems.service.StreetLightOutRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.TreeDebrisRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.TreeTrimsRequestService;
 import gr.di.uoa.m1542m1552.databasesystems.service.UserHistoryService;
@@ -52,6 +58,12 @@ class RequestController {
   GarbageCartsRequestService garbageCartsRequestService;
   @Autowired
   AbandonedVehiclesRequestService abandonedVehiclesRequestService;
+  @Autowired
+  AlleyLightsOutRequestService alleyLightsOutRequestService;
+  @Autowired
+  AllLightsOutRequestService allLightsOutRequestService;
+  @Autowired
+  StreetLightOutRequestService streetLightOutRequestService;
   @Autowired
   GraffitiRemovalRequestService graffitiRemovalRequestService;
   @Autowired
@@ -224,6 +236,27 @@ class RequestController {
     Iterable<AbandonedVehiclesRequest> requests = abandonedVehiclesRequestService.getRequests();
     return requests;
   }
+
+  // Alley Lights Out
+	@PostMapping("/alley_lights_out")
+	public AlleyLightsOutRequest createAlleyLightsOutRequest(@RequestBody AlleyLightsOutRequest newRequest) {
+    setDefaultValues(newRequest);
+		return alleyLightsOutRequestService.createAlleyLightsOutRequest(newRequest);
+  }
+  
+  // All Lights Out
+	@PostMapping("/all_lights_out")
+	public AllLightsOutRequest createAllLightsOutRequest(@RequestBody AllLightsOutRequest newRequest) {
+    setDefaultValues(newRequest);
+		return allLightsOutRequestService.createAllLightsOutRequest(newRequest);
+  }
+  
+  // Street Lights Out
+	@PostMapping("/street_light_out")
+	public StreetLightOutRequest createStreetLightOutRequest(@RequestBody StreetLightOutRequest newRequest) {
+    setDefaultValues(newRequest);
+		return streetLightOutRequestService.createStreetLightOutRequest(newRequest);
+	}
 
   // Garbage Carts
 	@PostMapping("/garbage_carts_requests")

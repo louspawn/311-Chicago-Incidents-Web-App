@@ -1,4 +1,4 @@
-package gr.di.uoa.m1542m1552.databasesystems.utils;
+package gr.di.uoa.m1542m1552.databasesystems.security;
 
 public class AuthToken {
 

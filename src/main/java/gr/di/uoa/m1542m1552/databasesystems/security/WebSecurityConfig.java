@@ -1,5 +1,5 @@
 
-package gr.di.uoa.m1542m1552.databasesystems.utils;
+package gr.di.uoa.m1542m1552.databasesystems.security;
 
 import javax.annotation.Resource;
 
@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/users/**", "/search**/**").permitAll()
+                .antMatchers("/users/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

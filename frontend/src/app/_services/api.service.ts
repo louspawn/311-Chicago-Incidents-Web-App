@@ -166,6 +166,12 @@ export class ApiService {
     switch (typeOfRequest) {
       case 'ABANDONED_VEHICLE':
         return 'abandoned_vehicles_requests';
+      case 'ALLEY_LIGHTS_OUT':
+        return 'alley_lights_out';
+      case 'LIGHTS_ALL_OUT':
+        return 'all_lights_out';
+      case 'LIGHT_ONE_OUT':
+        return 'street_light_out';
       case 'GARBAGE_CARTS':
         return 'garbage_carts_requests';
       case 'GRAFFITI_REMOVAL':

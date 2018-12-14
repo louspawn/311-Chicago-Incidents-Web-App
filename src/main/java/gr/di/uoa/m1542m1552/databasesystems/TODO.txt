@@ -18,8 +18,6 @@ Obsolete table will have index on id
 
 /////END//////
 
-Delete unecessary repository and service for requestRevision
-
 Make Not-null some table fields
 
 Put 3 more tables in the db

@@ -1,5 +1,5 @@
 
-package gr.di.uoa.m1542m1552.databasesystems.utils;
+package gr.di.uoa.m1542m1552.databasesystems.security;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,8 +20,8 @@ import gr.di.uoa.m1542m1552.databasesystems.domain.User;
 import gr.di.uoa.m1542m1552.databasesystems.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 
-import static gr.di.uoa.m1542m1552.databasesystems.utils.JwtConstants.HEADER_STRING;
-import static gr.di.uoa.m1542m1552.databasesystems.utils.JwtConstants.TOKEN_PREFIX;
+import static gr.di.uoa.m1542m1552.databasesystems.security.JwtConstants.HEADER_STRING;
+import static gr.di.uoa.m1542m1552.databasesystems.security.JwtConstants.TOKEN_PREFIX;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 

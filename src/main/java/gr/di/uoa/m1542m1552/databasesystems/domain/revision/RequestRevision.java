@@ -1,4 +1,4 @@
-package gr.di.uoa.m1542m1552.databasesystems.domain;
+package gr.di.uoa.m1542m1552.databasesystems.domain.revision;
 
 import java.util.Date;
 
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import gr.di.uoa.m1542m1552.databasesystems.domain.Request;
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 
 @Entity

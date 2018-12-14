@@ -1,5 +1,5 @@
 
-package gr.di.uoa.m1542m1552.databasesystems.utils;
+package gr.di.uoa.m1542m1552.databasesystems.security;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -14,8 +14,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import static gr.di.uoa.m1542m1552.databasesystems.utils.JwtConstants.SIGNING_KEY;
-import static gr.di.uoa.m1542m1552.databasesystems.utils.JwtConstants.ACCESS_TOKEN_VALIDITY_SECONDS;
+import static gr.di.uoa.m1542m1552.databasesystems.security.JwtConstants.SIGNING_KEY;
+import static gr.di.uoa.m1542m1552.databasesystems.security.JwtConstants.ACCESS_TOKEN_VALIDITY_SECONDS;
 
 @Component
 public class JwtTokenUtil implements Serializable {
