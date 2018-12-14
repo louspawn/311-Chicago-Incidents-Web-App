@@ -1,7 +1,5 @@
 package gr.di.uoa.m1542m1552.databasesystems.domain;
 
-import gr.di.uoa.m1542m1552.databasesystems.enumerations.*;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,51 +9,46 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
+
 @Entity
-@Table(name="request", schema="public",
-       indexes = { @Index(name = "creation_date_idx",  columnList="creationDate"),
-                   @Index(name = "type_of_service_request_creation_date_idx",  columnList="typeOfServiceRequest, creationDate"),
-                   @Index(name = "creation_date_zip_code_idx",  columnList="creationDate, zipCode"),
-                   @Index(name = "zip_code_idx",  columnList="zipCode"),
-                   @Index(name = "street_address_idx",  columnList="streetAddress"),
-                   @Index(name = "creation_date_type_of_service_request_idx",  columnList="creationDate, typeOfServiceRequest"),
-                   @Index(name = "type_of_service_request_idx",  columnList="typeOfServiceRequest")})
+@IdClass(RequestRevisionsPK.class)
+@Table(name="request_revisions", schema="public")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Request {
-    // for custom generator 
-    // https://www.baeldung.com/hibernate-identifiers
+public class RequestRevisions {
     @Id
     @Column(columnDefinition = "", unique = true, updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Id
+    // @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, nullable = false)
+    // @CreationTimestamp
+    private Date dateOfUpdate;
 
     @Column(updatable = false, nullable = false)
     private String serviceRequestNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false, nullable = false)
-    // TODO: uncomment after db import
-    @CreationTimestamp
     private Date creationDate;
 
     @Column(nullable = false)
     private String status;
 
-    // TODO: only date
     @Temporal(TemporalType.TIMESTAMP)
     private Date completionDate;
 
-    // https://vladmihalcea.com/the-best-way-to-map-an-enum-type-with-jpa-and-hibernate/
-    // https://thoughts-on-java.org/jpa-21-type-converter-better-way-to/
  	@Enumerated(EnumType.STRING)
     @Column(updatable = false, nullable = false)
     private TypeOfServiceRequest typeOfServiceRequest;
@@ -81,13 +74,7 @@ public class Request {
     @Column(nullable = true)
     private Double longitude;
 
-    // https://vladmihalcea.com/how-to-store-schema-less-eav-entity-attribute-value-data-using-json-and-hibernate/
-    // https://stackoverflow.com/questions/40802656/persisting-a-json-object-using-hibernate-and-jpa
     private String location;
-
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "rollNo", nullable = false)
-    // private Student student;
 
     public Integer getId() {
         return this.id;
@@ -95,6 +82,14 @@ public class Request {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDateOfUpdate() {
+        return this.dateOfUpdate;
+    }
+
+    public void setDateOfUpdate(Date dateOfUpdate) {
+        this.dateOfUpdate = dateOfUpdate;
     }
 
     public String getServiceRequestNumber() {

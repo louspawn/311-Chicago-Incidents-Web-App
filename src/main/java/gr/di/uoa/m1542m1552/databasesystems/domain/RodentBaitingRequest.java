@@ -3,9 +3,13 @@ package gr.di.uoa.m1542m1552.databasesystems.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Index;
 
 @Entity
-@Table(name="rodent_baiting_request", schema="public")
+@Table(name="rodent_baiting_request", schema="public",
+       indexes = { @Index(name = "number_of_premises_baited_idx",  columnList="numberOfPremisesBaited"),
+                   @Index(name = "number_of_premises_with_garbage_idx",  columnList="numberOfPremisesWithGarbage"),
+                   @Index(name = "number_of_premises_with_rats_idx",  columnList="numberOfPremisesWithRats") })
 public class RodentBaitingRequest extends Request {
 
     @Column(nullable = true)

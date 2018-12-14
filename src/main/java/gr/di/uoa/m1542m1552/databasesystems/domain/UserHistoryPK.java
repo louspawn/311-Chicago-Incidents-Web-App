@@ -1,4 +1,3 @@
-
 package gr.di.uoa.m1542m1552.databasesystems.domain;
 
 import java.io.Serializable;
@@ -6,18 +5,18 @@ import java.util.Date;
 
 public class UserHistoryPK implements Serializable {
     protected Integer userId;
-    protected Date timeStamp;
+    protected Date timestamp;
 
     public UserHistoryPK() {}
 
-    public UserHistoryPK(Integer userId, Date timeStamp) {
+    public UserHistoryPK(Integer userId, Date timestamp) {
         this.userId = userId;
-        this.timeStamp = timeStamp;
+        this.timestamp = timestamp;
     }
 
     @Override
     public int hashCode() {
-        return userId.hashCode() + timeStamp.hashCode();
+        return userId.hashCode() + timestamp.hashCode();
     }
 
     @Override
@@ -26,8 +25,8 @@ public class UserHistoryPK implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         UserHistoryPK other = (UserHistoryPK) obj;
-        if (userId.equals(other.userId)) return false;
-        if (timeStamp.equals(other.timeStamp)) return false;
+        if (!(userId.equals(other.userId))) return false;
+        if (!(timestamp.equals(other.timestamp))) return false;
         return true;
     }
 }

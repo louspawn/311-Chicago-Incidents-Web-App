@@ -3,9 +3,11 @@ package gr.di.uoa.m1542m1552.databasesystems.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Index;
 
 @Entity
-@Table(name="abandoned_vehicles_request", schema="public")
+@Table(name="abandoned_vehicles_request", schema="public",
+       indexes = { @Index(name = "vehicle_color_idx",  columnList="vehicleColor")})
 public class AbandonedVehiclesRequest extends Request {
 
     @Column(columnDefinition = "varchar(500)", nullable = true)

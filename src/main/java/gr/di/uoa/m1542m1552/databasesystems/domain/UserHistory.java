@@ -21,7 +21,7 @@ public class UserHistory {
     private User userId;
 
     @Id
-    private Date timeStamp;
+    private Date timestamp;
 
     @Column(unique = false, updatable = false, nullable = false)
     private String query;
@@ -35,11 +35,11 @@ public class UserHistory {
     }
 
     public Date getTimeStamp() {
-        return this.timeStamp;
+        return this.timestamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimeStamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getQuery() {

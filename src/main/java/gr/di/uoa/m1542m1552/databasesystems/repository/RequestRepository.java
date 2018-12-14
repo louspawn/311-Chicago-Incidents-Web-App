@@ -24,7 +24,7 @@ public interface RequestRepository extends CrudRepository<Request, Integer> {
            countQuery = "SELECT count(*) FROM function1(?1, ?2)", nativeQuery = true)
     public Page searchByStoredFunction1(Date fromDate, Date toDate, Pageable pageable);
 
-    @Query(value = "SELECT res.f1, res.f2 FROM function2(?1, ?2, ?3) AS res ORDER BY res.f2 DESC \n-- #pageable\n",
+    @Query(value = "SELECT res.f1, res.f2 FROM function2(?1, ?2, ?3) AS res ORDER BY res.f1 DESC \n-- #pageable\n",
            countQuery = "SELECT count(*) FROM function2(?1, ?2, ?3)", nativeQuery = true)
     public Page searchByStoredFunction2(Date fromDate, Date toDate, String type, Pageable pageable);
 
