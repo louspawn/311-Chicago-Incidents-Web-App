@@ -6,6 +6,8 @@ Backend validation - register, everything..
 
 Match case address. Search with ifs for zip code or address..
 
+////////////////
+
 Enumarations - type, status, graffiti location etc
 --change Status Open - Dup to Open_Dup and Completed to Completed_Dup
 
@@ -19,7 +21,7 @@ Obsolete table will have index on id
 
 /////END//////
 
-Delete autofill from the form
+Delete unecessary repository and service for requestRevision
 
 Make Not-null some table fields
 

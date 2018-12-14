@@ -2,8 +2,10 @@ package gr.di.uoa.m1542m1552.databasesystems.domain;
 
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.*;
 
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -85,9 +89,9 @@ public class Request {
     // https://stackoverflow.com/questions/40802656/persisting-a-json-object-using-hibernate-and-jpa
     private String location;
 
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "rollNo", nullable = false)
-    // private Student student;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "request_id")
+    private Collection<RequestRevision> requestRevisions;
 
     public Integer getId() {
         return this.id;
@@ -199,6 +203,14 @@ public class Request {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Collection<RequestRevision> getRequestRevision() {
+        return requestRevisions;
+    }
+
+    public void setUserHistory(Collection<RequestRevision> requestRevisions) {
+        this.requestRevisions = requestRevisions;
     }
 
 }

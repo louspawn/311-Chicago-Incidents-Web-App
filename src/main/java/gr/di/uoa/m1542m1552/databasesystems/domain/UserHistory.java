@@ -38,7 +38,7 @@ public class UserHistory {
         return this.timestamp;
     }
 
-    public void setTimeStamp(Date timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

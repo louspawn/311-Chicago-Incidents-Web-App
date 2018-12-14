@@ -3,22 +3,22 @@ package gr.di.uoa.m1542m1552.databasesystems.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class RequestRevisionsPK implements Serializable {
+public class RequestRevisionPK implements Serializable {
     private static final long serialVersionUID = 1L;
-    protected Integer id;
+
+    protected Integer requestId;
     protected Date dateOfUpdate;
 
-    public RequestRevisionsPK() {
-    }
+    public RequestRevisionPK() {}
 
-    public RequestRevisionsPK(Integer id, Date dateOfUpdate) {
-        this.id = id;
+    public RequestRevisionPK(Integer requestId, Date dateOfUpdate) {
+        this.requestId = requestId;
         this.dateOfUpdate = dateOfUpdate;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode() + dateOfUpdate.hashCode();
+        return requestId.hashCode() + dateOfUpdate.hashCode();
     }
 
     @Override
@@ -27,9 +27,9 @@ public class RequestRevisionsPK implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass())
             return false;
-        RequestRevisionsPK other = (RequestRevisionsPK) obj;
-        if (!(id.equals(other.id))) return false;
-        if (!(dateOfUpdate.equals(other.dateOfUpdate))) return false;
+        RequestRevisionPK other = (RequestRevisionPK) obj;
+        if (!requestId.equals(other.requestId)) return false;
+        if (!dateOfUpdate.equals(other.dateOfUpdate)) return false;
         return true;
     }
 }

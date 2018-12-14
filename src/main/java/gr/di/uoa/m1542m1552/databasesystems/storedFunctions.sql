@@ -190,6 +190,8 @@ WHERE r.id = p.id)
 )
 WITH DATA;
 
+-- Table request trigger
+
 create or replace function trigger_on_request_revision()
     returns trigger
     language plpgsql as $body$
@@ -204,7 +206,7 @@ begin
 	old.zip_code<>new.zip_code or
 	old."location"<>new."location")	then
 
-	insert into request_revisions (id, date_of_update, service_request_number, creation_date, status, completion_date, type_of_service_request, street_address, street_number, zip_code, x_coordinate, y_coordinate, latitude, longitude, location) 
+	insert into request_revisions (request_id, date_of_update, service_request_number, creation_date, status, completion_date, type_of_service_request, street_address, street_number, zip_code, x_coordinate, y_coordinate, latitude, longitude, location) 
 	values (old.id, current_timestamp, old.service_request_number, old.creation_date, old.status, old.completion_date, old.type_of_service_request, old.street_address, old.street_number, old.zip_code, old.x_coordinate, old.y_coordinate, old.latitude, old.longitude, old.location);
     end if;
     return new;
@@ -215,3 +217,29 @@ create trigger trigger_request_revision
   on request
   for each row
 execute procedure trigger_on_request_revision();
+
+-- Table abandoned_vehicles_request trigger
+
+create or replace function trigger_on_abandoned_vehicles_request_revision()
+    returns trigger
+    language plpgsql as $body$
+begin
+    if (old.current_activity<>new.current_activity or 
+	old.days_reported<>new.days_reported or 
+	old.license_plate<>new.license_plate or
+	old.most_recent_action<>new.most_recent_action or 
+	old.ssa<>new.ssa or
+	old.vehicle_color<>new.vehicle_color or
+	old.vehicle_model<>new.vehicle_model)	then
+
+	insert into abandoned_vehicles_request_revisions (request_id, date_of_update, current_activity, days_reported, license_plate, most_recent_action, ssa, vehicle_color, vehicle_model) 
+	values (old.id, current_timestamp, old.current_activity, old.days_reported, old.license_plate, old.most_recent_action, old.ssa, old.vehicle_color, old.vehicle_model);
+    end if;
+    return new;
+end; $body$;
+
+create trigger trigger_abandoned_vehicles_request_revision
+  before update
+  on abandoned_vehicles_request
+  for each row
+execute procedure trigger_on_abandoned_vehicles_request_revision();

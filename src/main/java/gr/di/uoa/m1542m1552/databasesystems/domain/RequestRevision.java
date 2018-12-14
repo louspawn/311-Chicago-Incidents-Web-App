@@ -6,34 +6,30 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 
 @Entity
-@IdClass(RequestRevisionsPK.class)
+@IdClass(RequestRevisionPK.class)
 @Table(name="request_revisions", schema="public")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class RequestRevisions {
+public class RequestRevision {
     @Id
-    @Column(columnDefinition = "", unique = true, updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name="request_id", referencedColumnName="id")})
+    private Request requestId;
 
     @Id
-    // @Temporal(TemporalType.TIMESTAMP)
-    @Column(updatable = false, nullable = false)
-    // @CreationTimestamp
     private Date dateOfUpdate;
 
     @Column(updatable = false, nullable = false)
@@ -76,12 +72,12 @@ public class RequestRevisions {
 
     private String location;
 
-    public Integer getId() {
-        return this.id;
+    public Request getId() {
+        return this.requestId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Request requestId) {
+        this.requestId = requestId;
     }
 
     public Date getDateOfUpdate() {

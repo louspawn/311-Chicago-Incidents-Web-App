@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserHistoryPK implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     protected Integer userId;
     protected Date timestamp;
 
@@ -25,8 +27,8 @@ public class UserHistoryPK implements Serializable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         UserHistoryPK other = (UserHistoryPK) obj;
-        if (!(userId.equals(other.userId))) return false;
-        if (!(timestamp.equals(other.timestamp))) return false;
+        if (!userId.equals(other.userId)) return false;
+        if (!timestamp.equals(other.timestamp)) return false;
         return true;
     }
 }

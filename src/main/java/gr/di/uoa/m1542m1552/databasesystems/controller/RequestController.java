@@ -79,7 +79,7 @@ class RequestController {
     User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     UserHistory userHistory = new UserHistory();
     userHistory.setUserId(userService.findByEmail(user.getUsername()));
-    userHistory.setTimeStamp(new Date());
+    userHistory.setTimestamp(new Date());
     userHistory.setQuery(query);
     userHistoryService.createUserHistory(userHistory);
   }
