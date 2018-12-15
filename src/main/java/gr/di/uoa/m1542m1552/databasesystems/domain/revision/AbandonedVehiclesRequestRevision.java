@@ -1,87 +1,266 @@
-// package gr.di.uoa.m1542m1552.databasesystems.domain.revision;
+package gr.di.uoa.m1542m1552.databasesystems.domain.revision;
 
-// import javax.persistence.Column;
-// import javax.persistence.Entity;
-// import javax.persistence.Table;
+import java.util.Date;
 
-// @Entity
-// @Table(name="abandoned_vehicles_request_revisions", schema="public")
-// public class AbandonedVehiclesRequestRevision {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-//     @Column(columnDefinition = "varchar(500)", nullable = true)
-//     private String licensePlate;
+import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 
-//     @Column(nullable = true)
-//     private String vehicleModel;
+@Entity
+@IdClass(RequestRevisionPK.class)
+@Table(name = "abandoned_vehicles_request_revisions", schema = "public")
+public class AbandonedVehiclesRequestRevision {
+    @Id
+    // @ManyToOne
+    // @JoinColumns({@JoinColumn(name="id", referencedColumnName="id")})
+    // private AbandonedVehiclesRequest id;
+    private Integer id;
 
-//     @Column(nullable = true)
-//     private String vehicleColor;
+    @Id
+    private Date dateOfUpdate;
 
-//     @Column(nullable = true)
-//     private String currentActivity;
+    @Column(updatable = false, nullable = false)
+    private String serviceRequestNumber;
 
-//     @Column(nullable = true)
-//     private String mostRecentAction;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false, nullable = false)
+    private Date creationDate;
 
-//     @Column(nullable = true)
-//     private Integer daysReported;
+    @Column(nullable = false)
+    private String status;
 
-//     @Column(nullable = true)
-//     private Integer ssa;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date completionDate;
 
-//     public String getLicensePlate() {
-//         return this.licensePlate;
-//     }
+ 	@Enumerated(EnumType.STRING)
+    @Column(updatable = false, nullable = false)
+    private TypeOfServiceRequest typeOfServiceRequest;
 
-//     public void setLicensePlate(String licensePlate) {
-//         this.licensePlate = licensePlate;
-//     }
+    @Column(nullable = false)
+    private String streetAddress;
 
-//     public String getVehicleModel() {
-//         return this.vehicleModel;
-//     }
+    @Column(nullable = true)
+    private Integer streetNumber;
 
-//     public void setVehicleModel(String vehicleModel) {
-//         this.vehicleModel = vehicleModel;
-//     }
+    @Column(nullable = true)
+    private Integer zipCode;
 
-//     public String getVehicleColor() {
-//         return this.vehicleColor;
-//     }
+    @Column(nullable = true)
+    private Double xCoordinate;
 
-//     public void setVehicleColor(String vehicleColor) {
-//         this.vehicleColor = vehicleColor;
-//     }
+    @Column(nullable = true)
+    private Double yCoordinate;
 
-//     public String getCurrentActivity() {
-//         return this.currentActivity;
-//     }
+    @Column(nullable = true)
+    private Double latitude;
 
-//     public void setCurrentActivity(String currentActivity) {
-//         this.currentActivity = currentActivity;
-//     }
+    @Column(nullable = true)
+    private Double longitude;
 
-//     public String getMostRecentAction() {
-//         return this.mostRecentAction;
-//     }
+    private String location;
 
-//     public void setMostRecentAction(String mostRecentAction) {
-//         this.mostRecentAction = mostRecentAction;
-//     }
+    @Column(columnDefinition = "varchar(500)", nullable = true)
+    private String licensePlate;
 
-//     public Integer getDaysReported() {
-//         return this.daysReported;
-//     }
+    @Column(nullable = true)
+    private String vehicleModel;
 
-//     public void setDaysReported(Integer daysReported) {
-//         this.daysReported = daysReported;
-//     }
+    @Column(nullable = true)
+    private String vehicleColor;
 
-//     public Integer getSsa() {
-//         return this.ssa;
-//     }
+    @Column(nullable = true)
+    private String currentActivity;
 
-//     public void setSsa(Integer ssa) {
-//         this.ssa = ssa;
-//     }
-// }
+    @Column(nullable = true)
+    private String mostRecentAction;
+
+    @Column(nullable = true)
+    private Integer daysReported;
+
+    @Column(nullable = true)
+    private Integer ssa;
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer requestId) {
+        this.id = requestId;
+    }
+
+    public Date getDateOfUpdate() {
+        return this.dateOfUpdate;
+    }
+
+    public void setDateOfUpdate(Date dateOfUpdate) {
+        this.dateOfUpdate = dateOfUpdate;
+    }
+
+    public String getServiceRequestNumber() {
+        return this.serviceRequestNumber;
+    }
+
+    public void setServiceRequestNumber(String serviceRequestNumber) {
+        this.serviceRequestNumber = serviceRequestNumber;
+    }
+
+    public Date getCreationDate() {
+        return this.creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCompletionDate() {
+        return this.completionDate;
+    }
+
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public TypeOfServiceRequest getTypeOfServiceRequest() {
+        return this.typeOfServiceRequest;
+    }
+
+    public void setTypeOfServiceRequest(TypeOfServiceRequest typeOfServiceRequest) {
+        this.typeOfServiceRequest = typeOfServiceRequest;
+    }
+
+    public String getStreetAddress() {
+        return this.streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public Integer getStreetNumber() {
+        return this.streetNumber;
+    }
+
+    public void setStreetNumber(Integer streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public Integer getZipCode() {
+        return this.zipCode;
+    }
+
+    public void setZipCode(Integer zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public Double getXCoordinate() {
+        return this.xCoordinate;
+    }
+
+    public void setXCoordinate(Double xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public Double getYCoordinate() {
+        return this.yCoordinate;
+    }
+
+    public void setYCoordinate(Double yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    public Double getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLicensePlate() {
+        return this.licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
+    public String getVehicleModel() {
+        return this.vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
+
+    public String getVehicleColor() {
+        return this.vehicleColor;
+    }
+
+    public void setVehicleColor(String vehicleColor) {
+        this.vehicleColor = vehicleColor;
+    }
+
+    public String getCurrentActivity() {
+        return this.currentActivity;
+    }
+
+    public void setCurrentActivity(String currentActivity) {
+        this.currentActivity = currentActivity;
+    }
+
+    public String getMostRecentAction() {
+        return this.mostRecentAction;
+    }
+
+    public void setMostRecentAction(String mostRecentAction) {
+        this.mostRecentAction = mostRecentAction;
+    }
+
+    public Integer getDaysReported() {
+        return this.daysReported;
+    }
+
+    public void setDaysReported(Integer daysReported) {
+        this.daysReported = daysReported;
+    }
+
+    public Integer getSsa() {
+        return this.ssa;
+    }
+
+    public void setSsa(Integer ssa) {
+        this.ssa = ssa;
+    }
+}

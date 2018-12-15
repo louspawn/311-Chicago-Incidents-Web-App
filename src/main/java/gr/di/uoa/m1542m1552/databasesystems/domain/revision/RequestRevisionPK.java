@@ -6,19 +6,19 @@ import java.util.Date;
 public class RequestRevisionPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    protected Integer requestId;
+    protected Integer id;
     protected Date dateOfUpdate;
 
     public RequestRevisionPK() {}
 
-    public RequestRevisionPK(Integer requestId, Date dateOfUpdate) {
-        this.requestId = requestId;
+    public RequestRevisionPK(Integer id, Date dateOfUpdate) {
+        this.id = id;
         this.dateOfUpdate = dateOfUpdate;
     }
 
     @Override
     public int hashCode() {
-        return requestId.hashCode() + dateOfUpdate.hashCode();
+        return id.hashCode() + dateOfUpdate.hashCode();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class RequestRevisionPK implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         RequestRevisionPK other = (RequestRevisionPK) obj;
-        if (!requestId.equals(other.requestId)) return false;
+        if (!id.equals(other.id)) return false;
         if (!dateOfUpdate.equals(other.dateOfUpdate)) return false;
         return true;
     }

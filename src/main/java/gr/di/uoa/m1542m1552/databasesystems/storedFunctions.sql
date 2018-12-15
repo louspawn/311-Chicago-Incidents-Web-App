@@ -143,7 +143,6 @@ $$
 LANGUAGE SQL;
 -- index on number_of_premises_with_rats
 
-12.
 
 
 
@@ -190,24 +189,40 @@ WHERE r.id = p.id)
 )
 WITH DATA;
 
--- Table request trigger
-
+-- Table abandoned_vehicles_request trigger
 create or replace function trigger_on_request_revision()
     returns trigger
     language plpgsql as $body$
+
+	Declare _id INT;
+	Declare _current_activity VARCHAR(255);
+	Declare _days_reported INT;
+	Declare _license_plate VARCHAR(500);
+	Declare _most_recent_action VARCHAR(255);
+	Declare _ssa INT;
+	Declare _vehicle_color VARCHAR(255);
+	Declare _vehicle_model VARCHAR(255);
 begin
     if (old.completion_date<>new.completion_date or 
-	old.latitude<>new.latitude or 
-	old.longitude<>new.longitude or
-	old.status<>new.status or 
-	old.street_address<>new.street_address or
-	old.x_coordinate<>new.x_coordinate or
-	old.y_coordinate<>new.y_coordinate or
-	old.zip_code<>new.zip_code or
-	old."location"<>new."location")	then
+        old.latitude<>new.latitude or 
+        old.longitude<>new.longitude or
+        old.status<>new.status or 
+        old.street_address<>new.street_address or
+        old.x_coordinate<>new.x_coordinate or
+        old.y_coordinate<>new.y_coordinate or
+        old.zip_code<>new.zip_code or
+        old."location"<>new."location") then
 
-	insert into request_revisions (request_id, date_of_update, service_request_number, creation_date, status, completion_date, type_of_service_request, street_address, street_number, zip_code, x_coordinate, y_coordinate, latitude, longitude, location) 
-	values (old.id, current_timestamp, old.service_request_number, old.creation_date, old.status, old.completion_date, old.type_of_service_request, old.street_address, old.street_number, old.zip_code, old.x_coordinate, old.y_coordinate, old.latitude, old.longitude, old.location);
+        if old.type_of_service_request = 'ABANDONED_VEHICLE' then
+
+            SELECT a.id, a.current_activity, a.days_reported, a.license_plate, a.most_recent_action, a.ssa, a.vehicle_color, a.vehicle_model INTO _id, _current_activity, _days_reported, _license_plate, _most_recent_action, _ssa, _vehicle_color, _vehicle_model 
+			from abandoned_vehicles_request a 
+			where a.id=new.id;
+            
+            insert into abandoned_vehicles_request_revisions (id, date_of_update, service_request_number, creation_date, status, completion_date, type_of_service_request, street_address, street_number, zip_code, x_coordinate, y_coordinate, latitude, longitude, location, current_activity, days_reported, license_plate, most_recent_action, ssa, vehicle_color, vehicle_model) 
+            values (old.id, current_timestamp, old.service_request_number, old.creation_date, old.status, old.completion_date, old.type_of_service_request, old.street_address, old.street_number, old.zip_code, old.x_coordinate, old.y_coordinate, old.latitude, old.longitude, old.location, _current_activity, _days_reported, _license_plate, _most_recent_action, _ssa, _vehicle_color, _vehicle_model);
+        end if;
+
     end if;
     return new;
 end; $body$;
@@ -218,22 +233,43 @@ create trigger trigger_request_revision
   for each row
 execute procedure trigger_on_request_revision();
 
--- Table abandoned_vehicles_request trigger
 
 create or replace function trigger_on_abandoned_vehicles_request_revision()
     returns trigger
     language plpgsql as $body$
+
+	Declare _id INT;
+	Declare _service_request_number VARCHAR(255);
+	Declare _creation_date DATE;
+	Declare _status VARCHAR(255);
+	Declare _completion_date DATE;
+	Declare _street_address VARCHAR(255);
+	Declare _street_number INT;
+	Declare _type_of_service_request VARCHAR(255);
+	Declare _zip_code INT;
+	Declare _x_coordinate FLOAT;
+	Declare _y_coordinate FLOAT;
+	Declare _latitude FLOAT;
+	Declare _longitude FLOAT;
+	Declare _location VARCHAR(255);
 begin
     if (old.current_activity<>new.current_activity or 
-	old.days_reported<>new.days_reported or 
-	old.license_plate<>new.license_plate or
-	old.most_recent_action<>new.most_recent_action or 
-	old.ssa<>new.ssa or
-	old.vehicle_color<>new.vehicle_color or
-	old.vehicle_model<>new.vehicle_model)	then
+        old.days_reported<>new.days_reported or 
+        old.license_plate<>new.license_plate or
+        old.most_recent_action<>new.most_recent_action or 
+        old.ssa<>new.ssa or
+        old.vehicle_color<>new.vehicle_color or
+        old.vehicle_model<>new.vehicle_model) then
 
-	insert into abandoned_vehicles_request_revisions (request_id, date_of_update, current_activity, days_reported, license_plate, most_recent_action, ssa, vehicle_color, vehicle_model) 
-	values (old.id, current_timestamp, old.current_activity, old.days_reported, old.license_plate, old.most_recent_action, old.ssa, old.vehicle_color, old.vehicle_model);
+		SELECT r.id, r.service_request_number, r.creation_date, r.status, r.completion_date, r.street_address, r.street_number, r.zip_code, r.x_coordinate, r.y_coordinate, r.latitude, r.longitude, r.location, r.type_of_service_request INTO _id, _service_request_number, _creation_date, _status, _completion_date, _street_address, _street_number, _zip_code, _x_coordinate, _y_coordinate, _latitude, _longitude, _location, _type_of_service_request
+		from request r 
+		where r.id=new.id;
+		
+		insert into abandoned_vehicles_request_revisions (id, date_of_update, service_request_number, creation_date, status, completion_date, type_of_service_request, street_address, street_number, zip_code, x_coordinate, y_coordinate, latitude, longitude, location, current_activity, days_reported, license_plate, most_recent_action, ssa, vehicle_color, vehicle_model) 
+		values (old.id, current_timestamp, _service_request_number, _creation_date, _status, _completion_date, _type_of_service_request, _street_address, _street_number, _zip_code, _x_coordinate, _y_coordinate, _latitude, _longitude, _location, old.current_activity, old.days_reported, old.license_plate, old.most_recent_action, old.ssa, old.vehicle_color, old.vehicle_model);
+
+        -- insert into request_revisions (request_id, date_of_update, service_request_number, creation_date, status, completion_date, type_of_service_request, street_address, street_number, zip_code, x_coordinate, y_coordinate, latitude, longitude, location) 
+        -- values (old.id, current_timestamp, old.service_request_number, old.creation_date, old.status, old.completion_date, old.type_of_service_request, old.street_address, old.street_number, old.zip_code, old.x_coordinate, old.y_coordinate, old.latitude, old.longitude, old.location);
     end if;
     return new;
 end; $body$;
@@ -243,3 +279,20 @@ create trigger trigger_abandoned_vehicles_request_revision
   on abandoned_vehicles_request
   for each row
 execute procedure trigger_on_abandoned_vehicles_request_revision();
+
+
+-- Check which fields, the user changed.
+
+-- If field_only_from_request:
+-- 	Update_request
+-- If field_only_from_abandoned:
+-- 	Update_abandoned
+-- If field_from_abandoned and field_from_request:
+-- 	Update_abandoned
+-- 	Update_request
+
+-- -- Update will be done with two queries.
+-- -- 1. Update query on table (abandoned, garbage, etc...)
+-- -- 2. Update request table (old values could be copied to the above table first)
+
+-- -- Trigers only 
