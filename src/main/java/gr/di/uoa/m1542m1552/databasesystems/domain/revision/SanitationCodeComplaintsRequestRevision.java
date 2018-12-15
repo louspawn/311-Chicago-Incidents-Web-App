@@ -1,51 +1,34 @@
-package gr.di.uoa.m1542m1552.databasesystems.domain;
+package gr.di.uoa.m1542m1552.databasesystems.domain.revision;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 
 @Entity
-@Table(name = "request", schema = "public", indexes = { 
-        @Index(name = "creation_date_idx", columnList = "creationDate"),
-        @Index(name = "completion_date_idx", columnList = "completionDate"),
-        @Index(name = "type_of_service_request_creation_date_idx", columnList = "typeOfServiceRequest, creationDate"),
-        @Index(name = "creation_date_zip_code_idx", columnList = "creationDate, zipCode"),
-        @Index(name = "zip_code_idx", columnList = "zipCode"),
-        @Index(name = "street_address_idx", columnList = "streetAddress"),
-        @Index(name = "creation_date_type_of_service_request_idx", columnList = "creationDate, typeOfServiceRequest"),
-        @Index(name = "type_of_service_request_idx", columnList = "typeOfServiceRequest") })
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Request {
-    // for custom generator
-    // https://www.baeldung.com/hibernate-identifiers
+@IdClass(RequestRevisionPK.class)
+@Table(name = "sanitation_code_complaints_request_revisions", schema = "public")
+public class SanitationCodeComplaintsRequestRevision {
     @Id
-    @Column(columnDefinition = "", unique = true, updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Id
+    private Date dateOfUpdate;
 
     @Column(updatable = false, nullable = false)
     private String serviceRequestNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false, nullable = false)
-    @CreationTimestamp
     private Date creationDate;
 
     @Column(nullable = false)
@@ -54,8 +37,6 @@ public class Request {
     @Temporal(TemporalType.TIMESTAMP)
     private Date completionDate;
 
-    // https://vladmihalcea.com/the-best-way-to-map-an-enum-type-with-jpa-and-hibernate/
-    // https://thoughts-on-java.org/jpa-21-type-converter-better-way-to/
  	@Enumerated(EnumType.STRING)
     @Column(updatable = false, nullable = false)
     private TypeOfServiceRequest typeOfServiceRequest;
@@ -65,15 +46,6 @@ public class Request {
 
     @Column(nullable = true)
     private Integer streetNumber;
-
-    @Column(nullable = true)
-    private Integer ward;
-
-    @Column(nullable = true)
-    private Integer policeDistrict;
-
-    @Column(nullable = true)
-    private Integer CommunityArea;
 
     @Column(nullable = true)
     private Integer zipCode;
@@ -90,20 +62,33 @@ public class Request {
     @Column(nullable = true)
     private Double longitude;
 
-    // https://vladmihalcea.com/how-to-store-schema-less-eav-entity-attribute-value-data-using-json-and-hibernate/
-    // https://stackoverflow.com/questions/40802656/persisting-a-json-object-using-hibernate-and-jpa
     private String location;
 
-    // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    // @JoinColumn(name = "request_id")
-    // private Collection<RequestRevision> requestRevisions;
+    @Column(nullable = true)
+    private String natureOfCodeViolation;
+
+    public String getNatureOfCodeViolation() {
+        return this.natureOfCodeViolation;
+    }
+
+    public void setNatureOfCodeViolation(String natureOfCodeViolation) {
+        this.natureOfCodeViolation = natureOfCodeViolation;
+    }
 
     public Integer getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer requestId) {
+        this.id = requestId;
+    }
+
+    public Date getDateOfUpdate() {
+        return this.dateOfUpdate;
+    }
+
+    public void setDateOfUpdate(Date dateOfUpdate) {
+        this.dateOfUpdate = dateOfUpdate;
     }
 
     public String getServiceRequestNumber() {
@@ -209,13 +194,5 @@ public class Request {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    // public Collection<RequestRevision> getRequestRevision() {
-    //     return requestRevisions;
-    // }
-
-    // public void setUserHistory(Collection<RequestRevision> requestRevisions) {
-    //     this.requestRevisions = requestRevisions;
-    // }
 
 }

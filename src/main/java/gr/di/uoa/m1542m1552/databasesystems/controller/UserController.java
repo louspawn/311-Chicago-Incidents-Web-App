@@ -63,7 +63,6 @@ class UserController {
   // User registration
   @PostMapping("/users")
   public User createUser(@RequestBody User newUser) {
-    // TODO: Validation needed
     newUser.setPassword(webSecurityConfig.passwordEncoder().encode(newUser.getPassword()));
     return userService.createUser(newUser);
   }

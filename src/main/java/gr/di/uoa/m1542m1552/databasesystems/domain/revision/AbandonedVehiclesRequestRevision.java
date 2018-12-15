@@ -19,9 +19,6 @@ import gr.di.uoa.m1542m1552.databasesystems.enumerations.TypeOfServiceRequest;
 @Table(name = "abandoned_vehicles_request_revisions", schema = "public")
 public class AbandonedVehiclesRequestRevision {
     @Id
-    // @ManyToOne
-    // @JoinColumns({@JoinColumn(name="id", referencedColumnName="id")})
-    // private AbandonedVehiclesRequest id;
     private Integer id;
 
     @Id
